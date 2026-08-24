@@ -1,0 +1,6 @@
+# Work-specific skills. Never tracked here, see .agents/adr/0002-public-repo-private-overlay.md
+skills/private/
+
+.claude/
+node_modules/
+.DS_Store
