@@ -1,0 +1,21 @@
+{
+  "name": "kamil",
+  "owner": {
+    "name": "Kamil Harzowski"
+  },
+  "description": "Kamil's personal agent skills, as an installable Claude Code plugin.",
+  "plugins": [
+    {
+      "name": "kamil-skills",
+      "source": "./",
+      "description": "Personal agent skills: PR review, bug diagnosis, requirement interviews, handoffs, and writing docs agents follow.",
+      "category": "engineering",
+      "keywords": [
+        "skills",
+        "code-review",
+        "debugging",
+        "productivity"
+      ]
+    }
+  ]
+}
