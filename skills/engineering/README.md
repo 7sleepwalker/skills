@@ -2,6 +2,12 @@
 
 Skills for daily code work.
 
+## User-invoked
+
+Reachable only by typing them.
+
+- **[bake-with-jira](./bake-with-jira/SKILL.md)**: Pick a Jira ticket assigned to me, read the description, comments and links, scout the repo for the files that would change, then run the baking interview and hand the settled plan to plan mode.
+
 ## Model-invoked
 
 Reachable by the model or by typing the name.

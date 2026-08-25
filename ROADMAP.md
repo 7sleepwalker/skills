@@ -18,6 +18,7 @@ Decisions that change *how the repo works* go in an ADR under [.agents/adr](./.a
 
 ## Done
 
+- 2026-08-25 Added `bake-with-jira`: pick a Jira ticket assigned to me, recon the repo, run the `baking` interview, hand off to plan mode
 - 2026-08-24 Phase 3: adapted `baking`, `bake-it`, `diagnosing-bugs`, `handoff`, `writing-for-agents`; added `CREDITS.md`, bucket READMEs, root README, plugin + marketplace manifests
 - 2026-08-24 Phase 2: migrated `code-quality` into `skills/engineering/` (`Task` -> `Agent` tool rename); linked all six skills into `~/.claude/skills`
 - 2026-08-24 Retired `review`: no frontmatter, and every section it covered is a strict subset of `code-quality`. Deleted rather than migrated

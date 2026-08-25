@@ -29,6 +29,10 @@ Skills split by who can invoke them. **User-invoked** skills fire only when I ty
 
 ### Engineering
 
+**User-invoked**
+
+- **[bake-with-jira](./skills/engineering/bake-with-jira/SKILL.md)**: Pick a Jira ticket assigned to me, read it properly, scout the repo, interview until the gaps are closed, then hand the plan to plan mode.
+
 **Model-invoked**
 
 - **[code-quality](./skills/engineering/code-quality/SKILL.md)**: PR review against the repo's own discovered standards, plus overcomplication, logic-bug risk, and scope match against the PR description and ticket. Parallel agents, HTML report, optional `--post` and `--fix`.
