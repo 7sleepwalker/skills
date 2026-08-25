@@ -9,7 +9,7 @@ They are small, opinionated, and meant to be edited. Nothing here assumes a part
 **On this machine** (authoring): symlinks, so an edit is live in the next session.
 
 ```bash
-git clone https://github.com/kamil-harzowski/skills.git
+git clone https://github.com/7sleepwalker/skills.git
 cd skills
 ./scripts/link-skills.sh
 ```
@@ -17,7 +17,7 @@ cd skills
 **On another machine**: the repo is its own Claude Code marketplace.
 
 ```
-/plugin marketplace add kamil-harzowski/skills
+/plugin marketplace add 7sleepwalker/skills
 /plugin install kamil-skills
 ```
 

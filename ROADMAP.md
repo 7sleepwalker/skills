@@ -11,15 +11,6 @@ Decisions that change *how the repo works* go in an ADR under [.agents/adr](./.a
 
 - [ ] Fill in `docs/`-style usage notes only if a skill turns out to need more than its `SKILL.md`
 
-## Later
-
-- [ ] Phase 5: private overlay (`skills/private/`) for work-specific skills. Build one only when a real task demands it.
-  - design-system migration skill
-  - monorepo conventions (package manager, type-check, package layout)
-  - issue-tracker flow via the atlassian MCP
-- [ ] Adapt `tdd` (plus its `tests.md` / `mocking.md` companions)
-- [ ] A `/new-skill` scaffolder, once there are ~10 skills and the boilerplate hurts
-
 ## Open questions
 
 - Is `writing-for-agents` (portable technique) worth keeping separate from `.agents/writing-skills.md` (house rules), or should one absorb the other?
