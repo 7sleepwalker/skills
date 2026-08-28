@@ -1,6 +1,6 @@
 ---
 name: baking
-description: Interview the user relentlessly about a plan, design, or decision until every open branch is settled. Use when the user wants to stress-test their thinking, says "bake it", "bake this", "half-baked", "poke holes in this", "interview me", "ask me questions first", or when a request is too underspecified to act on safely.
+description: Interview the user relentlessly about a plan, design, or decision until every open branch is settled. Use when the user wants to stress-test their thinking, says "bake it" / "half-baked", "poke holes in this", "interview me first", or when a request is too underspecified to act on safely.
 ---
 
 # Baking

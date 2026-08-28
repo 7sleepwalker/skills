@@ -19,7 +19,7 @@ If the redacted output is not enough to diagnose the bug, say so and ask.
 
 **This is the whole skill.** With a tight pass/fail signal that goes red on *this* bug, you will find the cause; bisection, hypotheses, and instrumentation all just consume that signal. Without one, no amount of reading code will save you.
 
-Spend disproportionate effort here. Be creative. Do not give up early.
+Spend disproportionate effort here.
 
 Ways to build one, roughly in order of preference:
 
@@ -42,7 +42,6 @@ Once you have *a* loop, treat it as a product and sharpen it:
 - **Sharper**: assert the specific symptom, not "did not crash".
 - **More deterministic**: pin time, seed randomness, isolate the filesystem, freeze the network.
 
-A 30-second flaky loop is barely a loop. A 2-second deterministic one is a superpower.
 
 For non-deterministic bugs the goal is not a clean repro, it is a **higher reproduction rate**: loop the trigger, parallelise, add load, inject sleeps to widen the timing window. 50% is debuggable, 1% is not. Keep raising it.
 
