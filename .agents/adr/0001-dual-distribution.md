@@ -1,5 +1,7 @@
 # 0001. Dual distribution: symlinks locally, plugin for other machines
 
+Amended by [0005-boo-namespace.md](./0005-boo-namespace.md): the local symlink is now one link to the repo root, not one per skill.
+
 ## Context
 
 Skills in this repo need to reach two places: the machine they are written on, where the edit loop should be instant, and any other machine or person, where a managed install is what makes sense.

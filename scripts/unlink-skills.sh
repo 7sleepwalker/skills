@@ -14,7 +14,7 @@ for entry in "$DEST"/*; do
   [ -L "$entry" ] || continue
   target="$(readlink "$entry")"
   case "$target" in
-    "$REPO"/*)
+    "$REPO" | "$REPO"/*)
       rm "$entry"
       echo "unlinked $(basename "$entry")"
       removed=$((removed + 1))

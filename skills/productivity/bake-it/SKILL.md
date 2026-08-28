@@ -9,7 +9,7 @@ disable-model-invocation: true
 
 The user has something half-baked and wants it interrogated before any work starts.
 
-Call the Skill tool with "baking".
+Call the Skill tool with "boo:baking".
 
 If arguments were passed, they are the subject. If not, the subject is whatever is on the table in this conversation; if that is genuinely unclear, ask what to bake before starting the interview.
 

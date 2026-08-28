@@ -2,7 +2,7 @@
 
 House rules. Every `SKILL.md` here follows them; `scripts/check-manifest.sh` enforces the mechanical ones.
 
-For the technique of writing prose an agent will actually follow, call the Skill tool with "writing-for-agents". This file is the checklist; that skill is the craft.
+For the technique of writing prose an agent will actually follow, call the Skill tool with "boo:writing-for-agents". This file is the checklist; that skill is the craft.
 
 ## Shape on disk
 

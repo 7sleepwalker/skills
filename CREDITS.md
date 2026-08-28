@@ -11,5 +11,14 @@ Skills here that started from someone else's work. Each is a rewrite, not a copy
 | [handoff](./skills/productivity/handoff/SKILL.md) | `skills/productivity/handoff` |
 | [writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md) | `skills/productivity/writing-for-agents` |
 | [diagnosing-bugs](./skills/engineering/diagnosing-bugs/SKILL.md) | `skills/engineering/diagnosing-bugs` |
+| [code-quality](./skills/engineering/code-quality/SKILL.md) | `skills/engineering/code-review` — the Fowler smell baseline in [smells.md](./skills/engineering/code-quality/smells.md), and the rule that review axes are never merged or reranked |
 
 The repo layout (bucket folders, the invocation split, the symlink script, the plugin manifest pairing) also follows that repo's shape.
+
+## [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) (skills are MIT)
+
+That repo is split-licensed — MIT covers the skills, BSL-1.1 covers the engine and runtime modules. Only the skill was read.
+
+| Mine | Upstream |
+| --- | --- |
+| [code-quality](./skills/engineering/code-quality/SKILL.md) | `skills/caveman-review` — the severity prefixes, the `q` category that replaces hedging, and the terse finding style with its carve-outs for security and architecture |

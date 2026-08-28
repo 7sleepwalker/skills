@@ -54,7 +54,7 @@ One pass. Do not fan out, and do not read the whole subsystem yourself.
 
 ## Step 5 — Bake it
 
-Call the Skill tool with "baking".
+Call the Skill tool with "boo:baking".
 
 The subject is the ticket plus the recon findings. Hand those over as established facts, so the interview does not spend questions on what Steps 3 and 4 already answered. Facts are yours; decisions are the user's.
 

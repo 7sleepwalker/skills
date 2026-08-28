@@ -6,7 +6,7 @@
   "description": "Kamil's personal agent skills, as an installable Claude Code plugin.",
   "plugins": [
     {
-      "name": "kamil-skills",
+      "name": "boo",
       "source": "./",
       "description": "Personal agent skills: PR review, bug diagnosis, requirement interviews, handoffs, and writing docs agents follow.",
       "category": "engineering",
