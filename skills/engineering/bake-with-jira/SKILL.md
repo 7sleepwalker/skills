@@ -72,7 +72,7 @@ If the session is not already in plan mode, call `EnterPlanMode`. Write the plan
 
 Call `ExitPlanMode`. Do not start implementing.
 
-Tell the user the ticket key doubles as the `TICKET` argument to `/code-quality` when the PR is up.
+Tell the user the ticket key doubles as the `TICKET` argument to `/boo:code-review` when the PR is up.
 
 ## What not to do
 

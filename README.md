@@ -32,10 +32,11 @@ Every skill below is invoked as `boo:<name>`. Skills split by who can invoke the
 **User-invoked**
 
 - **[boo:bake-with-jira](./skills/engineering/bake-with-jira/SKILL.md)**: Pick a Jira ticket assigned to me, read it properly, scout the repo, interview until the gaps are closed, then hand the plan to plan mode.
+- **[boo:comment-on-pr](./skills/engineering/comment-on-pr/SKILL.md)**: Review a PR with `code-review`, then post each finding as an inline comment in a plain human voice — asking before every one.
 
 **Model-invoked**
 
-- **[boo:code-quality](./skills/engineering/code-quality/SKILL.md)**: PR review against the repo's own discovered standards, plus overcomplication, logic-bug risk, and scope match against the PR description and ticket. Parallel agents, HTML report, optional `--post` and `--fix`.
+- **[boo:code-review](./skills/engineering/code-review/SKILL.md)**: PR review against the repo's own discovered standards, plus overcomplication, logic-bug risk, and scope match against the PR description and ticket. Parallel agents, HTML report, optional `--fix`.
 - **[boo:diagnosing-bugs](./skills/engineering/diagnosing-bugs/SKILL.md)**: Six-phase loop for hard bugs and performance regressions. Build a tight feedback loop that goes red on this bug before theorising about it.
 
 ### Productivity

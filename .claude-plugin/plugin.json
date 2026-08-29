@@ -16,7 +16,8 @@
   ],
   "skills": [
     "./skills/engineering/bake-with-jira",
-    "./skills/engineering/code-quality",
+    "./skills/engineering/code-review",
+    "./skills/engineering/comment-on-pr",
     "./skills/engineering/diagnosing-bugs",
     "./skills/productivity/bake-it",
     "./skills/productivity/baking",

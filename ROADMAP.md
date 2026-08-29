@@ -10,7 +10,7 @@ Decisions that change *how the repo works* go in an ADR under [.agents/adr](./.a
 ## Next
 
 - [ ] Fill in `docs/`-style usage notes only if a skill turns out to need more than its `SKILL.md`
-- [ ] Add skill evals once `claude plugin eval` leaves early access (not enabled in-session yet). Schema captured: cases at `skills/<bucket>/<name>/evals/<case>/prompt.md` (frontmatter `name`, `tags`, `runs`, `max_turns`, `allowed_tools`, `model`) + `evals/<case>/graders/<name>.md` (`type:` regex | tool_used | tool_order | file_exists | llm | baseline; `target:` last_message | trace | files). Run `claude plugin eval . --allow-tools Bash Write`; results at `<eval-dir>/results/<ts>/aggregate-result.json` + `report.html`, exit 0 = all cases ≥ `--threshold` (default 1.0). Seed `code-quality` + `baking` first. Source: Anthropic skill-creator.
+- [ ] Add skill evals once `claude plugin eval` leaves early access (not enabled in-session yet). Schema captured: cases at `skills/<bucket>/<name>/evals/<case>/prompt.md` (frontmatter `name`, `tags`, `runs`, `max_turns`, `allowed_tools`, `model`) + `evals/<case>/graders/<name>.md` (`type:` regex | tool_used | tool_order | file_exists | llm | baseline; `target:` last_message | trace | files). Run `claude plugin eval . --allow-tools Bash Write`; results at `<eval-dir>/results/<ts>/aggregate-result.json` + `report.html`, exit 0 = all cases ≥ `--threshold` (default 1.0). Seed `code-review` + `baking` first. Source: Anthropic skill-creator.
 
 ## Open questions
 
@@ -19,6 +19,7 @@ Decisions that change *how the repo works* go in an ADR under [.agents/adr](./.a
 
 ## Done
 
+- 2026-08-29 Renamed `code-quality` → `code-review` and split posting out of it: new user-invoked `comment-on-pr` reviews via `code-review`, then posts each finding as a gated inline PR comment (`gh api .../pulls/N/comments`) in a plain human voice. Dropped `--post` from `code-review`.
 - 2026-08-29 Learned from `awesome-agent-skills`: `baking` gained lettered options + per-question "not sure" (no accept-all); `code-quality` gained blast radius + git-blame regression context (adapted from trailofbits/skills `differential-review`). Evals parked in Next.
 - 2026-08-28 Namespaced every promoted skill under `boo:` via a skills-directory plugin (ADR-0005); `link-skills.sh` now makes one link to the repo root, private skills keep bare links
 - 2026-08-28 Merged `caveman-review` severity prefixes and the `mattpocock/code-review` Fowler smell baseline into `code-quality`; added `smells.md`, a `q` category, and the two-axis rule

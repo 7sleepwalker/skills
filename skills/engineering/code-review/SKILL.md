@@ -1,8 +1,8 @@
 ---
-name: code-quality
-description: "PR-focused review against the repo's own standards — quality, overcomplication, logic-bug risk, and scope vs the PR + linked ticket. Parallel agents, HTML report, --post, --fix. Args: [PR#|url|path|--staged|--all] [TICKET] [--post] [--fix]"
-argument-hint: "[PR#|url] [--post] [--fix]"
-allowed-tools: Read, Grep, Glob, Bash(git diff:*), Bash(git status:*), Bash(git ls-files:*), Bash(git log:*), Bash(git blame:*), Bash(git rev-parse:*), Bash(git symbolic-ref:*), Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr list:*), Bash(gh pr comment:*), Agent, mcp__atlassian__getJiraIssue, mcp__atlassian__getAccessibleAtlassianResources, mcp__atlassian__search, Edit, Write
+name: code-review
+description: "PR-focused review against the repo's own standards — quality, overcomplication, logic-bug risk, and scope vs the PR + linked ticket. Parallel agents, HTML report, --fix. To post findings as inline PR comments, use boo:comment-on-pr. Args: [PR#|url|path|--staged|--all] [TICKET] [--fix]"
+argument-hint: "[PR#|url] [--fix]"
+allowed-tools: Read, Grep, Glob, Bash(git diff:*), Bash(git status:*), Bash(git ls-files:*), Bash(git log:*), Bash(git blame:*), Bash(git rev-parse:*), Bash(git symbolic-ref:*), Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr list:*), Agent, mcp__atlassian__getJiraIssue, mcp__atlassian__getAccessibleAtlassianResources, mcp__atlassian__search, Edit, Write
 ---
 
 # Code Quality Review (PR-focused)
@@ -21,8 +21,9 @@ Parse `$ARGUMENTS`, order-independent:
 - **PR selector** (default: the current branch's open PR): a bare number (`5616`) or PR URL → that PR; nothing → auto-detect (Step 1).
 - **Local override scopes** (pre-PR review, no PR yet): `--staged` → `git diff --staged`; `--all` → full diff vs the default branch; a `path` → only that path.
 - **Ticket** (optional): a `[A-Z]+-\d+` token or issue-tracker URL. If absent, auto-detect from the branch name and PR title/body.
-- **`--post`** → post the review back to the PR (Step 4). Off by default.
 - **`--fix`** → apply safe fixes to the working tree (`--fix` mode). Without it, report only.
+
+Posting findings to the PR is a separate, interactive skill: `boo:comment-on-pr`. This skill only reviews.
 
 ## Step 0 — Discover this repo's standards
 
@@ -105,14 +106,14 @@ Write every field terse and concrete: exact line numbers, exact symbols in backt
 
 4. If nothing survives: "No qualifying findings. Checked naming/structure, conventions/API, reuse/simplification, smell baseline, testing, overcomplication, logic-bug risk, and PR scope." Say whether repo rules, the smell baseline, or universal defaults were used.
 
-5. **HTML report** (always) — after the Markdown, `Write` the same report to `${TMPDIR:-/tmp}/code-quality-review.html` (resolve `$TMPDIR` absolute), then end your response with a clickable `file://` link. Temp, never the repo. Requirements:
+5. **HTML report** (always) — after the Markdown, `Write` the same report to `${TMPDIR:-/tmp}/code-review.html` (resolve `$TMPDIR` absolute), then end your response with a clickable `file://` link. Temp, never the repo. Requirements:
    - Self-contained: inline `<style>`, no external assets/scripts. Start with `<title>`; no `<html>`/`<head>`/`<body>` wrappers.
    - Theme-aware: full light palette on bare `:root`; redefine tokens under both `@media (prefers-color-scheme: dark)` (guarded `:root:not([data-theme="light"])`) and `:root[data-theme="dark"]`; give `body` an explicit token background.
    - Same content + order as the Markdown: header (PR #/title/branch/base), verdict + the summary line, a stat row (candidates / dropped / surviving / severity counts), the Scope-check block, each finding as a card (emoji severity badge + confidence + occurrences + a `suggestion` block styled as an addition + references), a "below the bar" section for sub-80 correctness observations, a "what was checked" footer.
    - Badges colour-coded, 🟠 High distinct from 🔴 Critical; `❓ [q]` a neutral badge outside the severity scale.
    - Overwrite each run. Findings text is the source of truth — never invent findings not in the Markdown.
 
-6. **Post to PR** (only if `--post` AND a real PR): an outward-facing action — show the exact comment body and **ask for confirmation before posting**. On approval, `gh pr comment <n> --body-file <tmpfile>`. Mirror the Markdown (scope check + findings + summary), brief, keep the severity prefixes, each finding citing `path:line`. In local-fallback mode, skip and say so.
+To post these findings to the PR, the user runs `boo:comment-on-pr`, which gates each comment.
 
 ## `--fix` mode
 
