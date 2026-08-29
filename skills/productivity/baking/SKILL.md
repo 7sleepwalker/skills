@@ -20,7 +20,8 @@ A question whose answer depends on another question still open in this round is 
 Format a round exactly like this:
 
 ```
-❓ **Q1** — **<short title>**: <the question, as long as it needs to be, including options where there are options>
+❓ **Q1** — **<short title>**: <the question, as long as it needs to be>
+   (a) <option> (b) <option> (c) <option>
 
 ➡️ <your recommended answer, and why>
 
@@ -32,6 +33,8 @@ Format a round exactly like this:
 ```
 
 Always give a recommendation. A question with no recommendation pushes work back onto the user that you could have done.
+
+Where a question has discrete options, letter them so the user can answer compactly (`1a 2b`). Per question, "not sure — take your recommendation" is a valid answer, and you adopt your ➡️ for that one question. This is a decision on a single question, not a way to wave through the whole round: there is no accept-all, because the point of baking is that the user weighs each branch.
 
 Each round's answers reshape the tree: settled decisions push the frontier outward and unblock what depended on them. Recompute the frontier, ask the next round.
 

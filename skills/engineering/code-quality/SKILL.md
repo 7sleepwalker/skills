@@ -2,7 +2,7 @@
 name: code-quality
 description: "PR-focused review against the repo's own standards — quality, overcomplication, logic-bug risk, and scope vs the PR + linked ticket. Parallel agents, HTML report, --post, --fix. Args: [PR#|url|path|--staged|--all] [TICKET] [--post] [--fix]"
 argument-hint: "[PR#|url] [--post] [--fix]"
-allowed-tools: Read, Grep, Glob, Bash(git diff:*), Bash(git status:*), Bash(git ls-files:*), Bash(git log:*), Bash(git rev-parse:*), Bash(git symbolic-ref:*), Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr list:*), Bash(gh pr comment:*), Agent, mcp__atlassian__getJiraIssue, mcp__atlassian__getAccessibleAtlassianResources, mcp__atlassian__search, Edit, Write
+allowed-tools: Read, Grep, Glob, Bash(git diff:*), Bash(git status:*), Bash(git ls-files:*), Bash(git log:*), Bash(git blame:*), Bash(git rev-parse:*), Bash(git symbolic-ref:*), Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr list:*), Bash(gh pr comment:*), Agent, mcp__atlassian__getJiraIssue, mcp__atlassian__getAccessibleAtlassianResources, mcp__atlassian__search, Edit, Write
 ---
 
 # Code Quality Review (PR-focused)
@@ -47,7 +47,7 @@ Launch these agents **concurrently** (`Agent` tool, one message). Give each: the
 
 - **Q1 — Standards & conventions:** names, file/module layout, layer boundaries, dependency direction, public-API surface, and any mandated data/API/state/UI pattern (required client, typed hooks, component library, forbidden raw libs) — as the repo's rules define them. Universal fallback when silent: consistency with sibling code, no circular deps, no cross-layer leaks, minimal export surface.
 - **Q2 — Reuse/simplification + testing** (paste `smells.md` here): pattern repeated 3+ → extract; monolith (>~200-300 lines) or nesting >3 → split; check the repo's own utils/libs before flagging reinvention; dead code, redundant state, nested ternaries. Judge the diff against the pasted smell catalogue under both its rules. Testing: follow the repo's conventions; missing tests for new/changed critical logic or shared utilities is a strong finding.
-- **R — Correctness & complexity** (diff + adjacent context only): **overcomplication** — needless abstraction, extra state/indirection, speculative generality; report the simpler shape. **Logic-bug risk** — off-by-one, inverted/incomplete conditions, wrong operator, missing null/empty handling, unhandled rejection / missing `await`, broken invariants, stale-closure / dep-array bugs, races. Only correctness the CHANGE introduces, not typecheck-catchable errors.
+- **R — Correctness & complexity** (diff + adjacent context only): **overcomplication** — needless abstraction, extra state/indirection, speculative generality; report the simpler shape. **Logic-bug risk** — off-by-one, inverted/incomplete conditions, wrong operator, missing null/empty handling, unhandled rejection / missing `await`, broken invariants, stale-closure / dep-array bugs, races. Only correctness the CHANGE introduces, not typecheck-catchable errors. **Blast radius:** for each changed exported symbol, count its callers with Grep (LSP if available) — a bug in something called from many sites is worse than the same bug in a leaf; feed the count into severity. **git blame:** run it on changed lines to separate a fresh change from a long-standing line touched incidentally, and to flag a change that reverts a previously-fixed bug (regression).
 - **S — PR scope** (always, for a PR): compare PR title + body (and the ticket if fetched) to the diff. Return **Asked / Changed / Out-of-scope extras / Possible gaps**. Advisory — no severity, exempt from the confidence bar. Skip only in local-fallback mode with no ticket.
 
 **Degrade path:** if the `Agent` tool is unavailable, run Q1 → Q2 → R → S inline yourself. Same rules, same output.
@@ -63,7 +63,7 @@ Launch these agents **concurrently** (`Agent` tool, one message). Give each: the
   - **[Ignore]** — never report: formatting/lint/import-order/style, and anything a typechecker/linter/compiler catches.
 - Logic-bug and overcomplication findings share the **same ranked list** as quality findings.
 - Dedupe **one-pattern-one-finding** (list occurrences, don't repeat per line).
-- Rank: Security > Data integrity > Correctness > Performance > Simplicity > Maintainability > Readability > Style.
+- Rank: Security > Data integrity > Correctness > Performance > Simplicity > Maintainability > Readability > Style. Blast radius (from Agent R) is a tie-breaker within a tier: the more callers a finding reaches, the higher it sits.
 - **Confidence bar:** score each finding 0-100 that it's real, in-scope, not pre-existing, not intentional. **Drop anything below 80.** Scope check and `❓ [q]` are exempt.
 - **Two axes, never merged.** The ranked findings (Q1/Q2/R) and the Scope check (S) stay separate — never rank one against the other, never let a clean scope check soften a 🔴 or vice versa. A PR can pass one axis and fail the other.
 
@@ -119,4 +119,4 @@ Write every field terse and concrete: exact line numbers, exact symbols in backt
 Apply the **safe** surviving fixes with Edit, preserving behavior. No formatters, no commit. A logic-bug fix that would change intended behavior is **reported, not applied** — flag it for the author. `❓ [q]` items are questions, never fixes. After editing, remind the user to run the repo's own type-check + test commands for the touched modules.
 
 ---
-Severity prefixes and the terse finding style are adapted from [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) (skills are MIT). The smell baseline and the two-axis rule are adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT).
+Severity prefixes and the terse finding style are adapted from [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) (skills are MIT). The smell baseline and the two-axis rule are adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT). Blast radius and git-blame regression context are adapted from [trailofbits/skills](https://github.com/trailofbits/skills) `differential-review` (CC-BY-SA-4.0) — technique only, rewritten here.

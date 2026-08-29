@@ -22,3 +22,11 @@ That repo is split-licensed — MIT covers the skills, BSL-1.1 covers the engine
 | Mine | Upstream |
 | --- | --- |
 | [code-quality](./skills/engineering/code-quality/SKILL.md) | `skills/caveman-review` — the severity prefixes, the `q` category that replaces hedging, and the terse finding style with its carve-outs for security and architecture |
+
+## [trailofbits/skills](https://github.com/trailofbits/skills) (CC-BY-SA-4.0)
+
+Technique only — the idea was adapted and the prose rewritten from scratch, so no share-alike derivative attaches; credited here regardless.
+
+| Mine | Upstream |
+| --- | --- |
+| [code-quality](./skills/engineering/code-quality/SKILL.md) | `differential-review` — blast radius (weigh a finding by how many callers the changed symbol reaches) and using `git blame` to spot regressions in previously-fixed lines |
