@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Blocks a push when the manifest check fails. This is the enforcement the
+# "run check-manifest before every push" discipline was missing.
+#
+# Tracked in the repo (unlike .git/hooks) and enabled per machine by
+# scripts/link-skills.sh, which sets core.hooksPath to .githooks.
+# See .agents/adr/0008-pre-push-hook.md.
+set -euo pipefail
+
+REPO="$(git rev-parse --show-toplevel)"
+exec "$REPO/scripts/check-manifest.sh"

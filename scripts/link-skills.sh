@@ -14,6 +14,13 @@ REPO="$(cd "$(dirname "$0")/.." && pwd)"
 DEST="${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}"
 PLUGIN_NAME="boo"
 
+# Enable the tracked git hooks (pre-push runs check-manifest). Harmless to
+# re-run; only applies when this is a git clone. See adr/0008-pre-push-hook.md.
+if git -C "$REPO" rev-parse --git-dir >/dev/null 2>&1; then
+  git -C "$REPO" config core.hooksPath .githooks
+  echo "git hooks enabled (core.hooksPath -> .githooks)"
+fi
+
 # If $DEST is itself a symlink into this repo, the links below would be written
 # back into the repo's own tree. Bail out instead.
 if [ -L "$DEST" ]; then

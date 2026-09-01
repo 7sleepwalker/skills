@@ -26,9 +26,11 @@ There is no `misc/`, `in-progress/`, or `deprecated/` bucket. A retired skill is
 
 | Command | When |
 | --- | --- |
-| `./scripts/check-manifest.sh` | after adding, renaming, or removing a skill, and before every push |
-| `./scripts/link-skills.sh` | after adding or renaming a skill, to (re)link every skill into `~/.claude/skills` |
+| `./scripts/check-manifest.sh` | after adding, renaming, or removing a skill; also runs automatically on `git push` (pre-push hook) and blocks the push if it fails |
+| `./scripts/link-skills.sh` | after adding or renaming a skill, to (re)link every skill into `~/.claude/skills`; also enables the git hooks (`core.hooksPath`) |
 | `./scripts/unlink-skills.sh` | to remove this repo's symlinks from `~/.claude/skills` |
 | `./scripts/list-skills.sh` | to see every skill with its bucket and invocation mode |
 
 This machine consumes the skills through symlinks, not through the plugin. Do not install the plugin here: every skill would appear twice. See [.agents/adr/0001-dual-distribution.md](./.agents/adr/0001-dual-distribution.md).
+
+`check-manifest.sh` is enforced by a tracked `.githooks/pre-push` hook, turned on per machine by `link-skills.sh`. A fresh clone has no enforcement until that script runs once; bypass a single push in an emergency with `git push --no-verify`. See [.agents/adr/0008-pre-push-hook.md](./.agents/adr/0008-pre-push-hook.md).
