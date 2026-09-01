@@ -19,6 +19,7 @@ Decisions that change *how the repo works* go in an ADR under [.agents/adr](./.a
 
 ## Done
 
+- 2026-09-01 `code-review` diff scoping: the scope agent (S) now runs on the changed-files list + `--stat` + PR/ticket text instead of the full code diff — it judges intent vs what changed, not the code, so this saves ~1× full diff per run with no quality loss. Q1/Q2/R still read the full diff.
 - 2026-09-01 `check-manifest.sh` now enforces the plain-language clause (ADR-0006): every promoted skill must carry the `**Plain language.**` marker with the canonical wording, closing the silent-drift gap the ADR had flagged.
 - 2026-09-01 Cut `code-review` token burn: extract repo rules once into a verbatim digest (was re-read by every subagent) and paste it only to the agents that use it — Q1 all, Q2 the utils/test subset, R/S none (ADR — code-review Step 0/2).
 - 2026-09-01 Dropped the per-skill `Adapted from …` footers (ADR-0007); the skills are standalone rewrites now, and `CREDITS.md` is the single place attribution lives. README + `writing-skills.md` reworded off "adapted" framing.
