@@ -28,8 +28,8 @@ There is no `misc/`, `in-progress/`, or `deprecated/` bucket. A retired skill is
 | --- | --- |
 | `./scripts/check-manifest.sh` | after adding, renaming, or removing a skill; also runs automatically on `git push` (pre-push hook) and blocks the push if it fails |
 | `./scripts/link-skills.sh` | after adding or renaming a skill, to (re)link every skill into `~/.claude/skills`; also enables the git hooks (`core.hooksPath`) |
-| `./scripts/unlink-skills.sh` | to remove this repo's symlinks from `~/.claude/skills` |
-| `./scripts/list-skills.sh` | to see every skill with its bucket and invocation mode |
+| `./scripts/unlink-skills.sh` | to remove this repo's symlinks from `~/.claude/skills` and disable the git hooks (unsets `core.hooksPath` if it still points at ours) |
+| `./scripts/list-skills.sh` | to see every skill with its bucket, invocation mode, and a short description |
 
 This machine consumes the skills through symlinks, not through the plugin. Do not install the plugin here: every skill would appear twice. See [.agents/adr/0001-dual-distribution.md](./.agents/adr/0001-dual-distribution.md).
 

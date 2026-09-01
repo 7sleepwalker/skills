@@ -19,6 +19,7 @@ Decisions that change *how the repo works* go in an ADR under [.agents/adr](./.a
 
 ## Done
 
+- 2026-09-01 Script polish: `unlink-skills.sh` now unsets `core.hooksPath` (symmetry with `link-skills.sh`, guarded so a custom value survives) and still runs when the skills dir is already gone; `list-skills.sh` gained a trimmed description column.
 - 2026-09-01 Added a tracked `.githooks/pre-push` that runs `check-manifest.sh` and blocks the push on failure (ADR-0008); `link-skills.sh` enables it via `core.hooksPath`. Turns the "check before push" discipline into real enforcement — no CI on this machine.
 - 2026-09-01 `code-review` diff scoping: the scope agent (S) now runs on the changed-files list + `--stat` + PR/ticket text instead of the full code diff — it judges intent vs what changed, not the code, so this saves ~1× full diff per run with no quality loss. Q1/Q2/R still read the full diff.
 - 2026-09-01 `check-manifest.sh` now enforces the plain-language clause (ADR-0006): every promoted skill must carry the `**Plain language.**` marker with the canonical wording, closing the silent-drift gap the ADR had flagged.

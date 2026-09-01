@@ -58,8 +58,8 @@ Every skill below is invoked as `boo:<name>`. Skills split by who can invoke the
 | Command | What it does |
 | --- | --- |
 | `./scripts/link-skills.sh` | link the repo into `~/.claude/skills` as the `boo` plugin, plus bare links for private skills |
-| `./scripts/unlink-skills.sh` | remove this repo's symlinks |
-| `./scripts/list-skills.sh` | list skills with bucket and invocation mode |
+| `./scripts/unlink-skills.sh` | remove this repo's symlinks and disable the git hooks |
+| `./scripts/list-skills.sh` | list skills with bucket, invocation mode, and a short description |
 | `./scripts/check-manifest.sh` | verify the READMEs, the manifest, and the filesystem agree (also runs on `git push` via the pre-push hook) |
 
 MIT licensed. Some skills started from prior work by others; that work is credited in [CREDITS.md](./CREDITS.md).
