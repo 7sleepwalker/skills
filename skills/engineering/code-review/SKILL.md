@@ -66,13 +66,31 @@ Launch these agents **concurrently** (`Agent` tool, one message). Give each: the
 - Dedupe **one-pattern-one-finding** (list occurrences, don't repeat per line).
 - Rank: Security > Data integrity > Correctness > Performance > Simplicity > Maintainability > Readability > Style. Blast radius (from Agent R) is a tie-breaker within a tier: the more callers a finding reaches, the higher it sits.
 - **Confidence bar:** score each finding 0-100 that it's real, in-scope, not pre-existing, not intentional. **Drop anything below 80.** Scope check and `❓ [q]` are exempt.
+- **Overall score (0-10, quality axis only) + badge.** From the *surviving* Q1/Q2/R findings: the worst finding sets the band, count + blast radius place within it. `❓ [q]` and the Scope axis never move it.
+  - `10` — no surviving findings → 🟢
+  - `8–9` — only 🔵 Low → 🟢
+  - `6–7` — 🟡 Medium present, no High/Critical → 🟡
+  - `4–5` — 🟠 High present, no Critical → 🟠
+  - `1–3` — any 🔴 Critical → 🔴
+- **Per-area buckets:** group the changed files by top-level module/directory and attach each surviving finding to its area — one sentence per area for the summary (its worst issue, or "clean").
 - **Two axes, never merged.** The ranked findings (Q1/Q2/R) and the Scope check (S) stay separate — never rank one against the other, never let a clean scope check soften a 🔴 or vice versa. A PR can pass one axis and fail the other.
 
 ## Step 4 — Output
 
 Write every field terse and concrete: exact line numbers, exact symbols in backticks, a concrete fix (not "consider refactoring"), and the *why* when the fix isn't self-evident. Drop "I noticed that…", "it seems like…", "you might want to…", restating what the line does, and hedging (raise a `❓ [q]` instead). State the overall verdict once, at the top. **Exception:** 🔴 security findings get a full explanation and a reference; architectural disagreements get the rationale spelled out.
 
-1. **Scope check** — lead with this non-blocking advisory:
+0. **Review summary** — lead with this at-a-glance block (the overall verdict, stated once):
+   ```
+   ## Review summary — 🟢 9/10
+
+   *Quality axis only; scope tracked separately below.*
+
+   - **`src/auth/`** — <one sentence: worst issue in this area, or "clean">
+   - **`src/api/`** — <one sentence>
+   ```
+   Headline is `<badge> <score>/10` from the Step 3 rubric. One sentence per module/dir touched, terse, same voice as findings — no hedging.
+
+1. **Scope check** — then this non-blocking advisory:
    ```
    ## Scope check — PR #<n>: <PR title>  ·  <KEY>: <ticket title>
 
@@ -109,7 +127,7 @@ Write every field terse and concrete: exact line numbers, exact symbols in backt
 5. **HTML report** (always) — after the Markdown, `Write` the same report to `${TMPDIR:-/tmp}/code-review.html` (resolve `$TMPDIR` absolute), then end your response with a clickable `file://` link. Temp, never the repo. Requirements:
    - Self-contained: inline `<style>`, no external assets/scripts. Start with `<title>`; no `<html>`/`<head>`/`<body>` wrappers.
    - Theme-aware: full light palette on bare `:root`; redefine tokens under both `@media (prefers-color-scheme: dark)` (guarded `:root:not([data-theme="light"])`) and `:root[data-theme="dark"]`; give `body` an explicit token background.
-   - Same content + order as the Markdown: header (PR #/title/branch/base), verdict + the summary line, a stat row (candidates / dropped / surviving / severity counts), the Scope-check block, each finding as a card (emoji severity badge + confidence + occurrences + a `suggestion` block styled as an addition + references), a "below the bar" section for sub-80 correctness observations, a "what was checked" footer.
+   - Same content + order as the Markdown: header (PR #/title/branch/base), the **Review summary** (a prominent `<badge> <score>/10` — badge styled by band, reusing the severity token colours so 8–10 green, 6–7 yellow, 4–5 orange, 1–3 red — plus the per-area sentence list), verdict + the summary line, a stat row (candidates / dropped / surviving / severity counts), the Scope-check block, each finding as a card (emoji severity badge + confidence + occurrences + a `suggestion` block styled as an addition + references), a "below the bar" section for sub-80 correctness observations, a "what was checked" footer.
    - Badges colour-coded, 🟠 High distinct from 🔴 Critical; `❓ [q]` a neutral badge outside the severity scale.
    - Overwrite each run. Findings text is the source of truth — never invent findings not in the Markdown.
 
