@@ -51,6 +51,12 @@ for bucket in "${PROMOTED_BUCKETS[@]}"; do
       || err "$name is not referenced in $ROOT_README"
     [ -f "$bucket_readme" ] && { grep -qF "$name" "$bucket_readme" \
       || err "$name is not referenced in $bucket_readme"; }
+
+    # plain-language output clause (ADR-0006): marker present, wording intact
+    grep -qF '**Plain language.**' "$dir/SKILL.md" \
+      || err "$name is missing the **Plain language.** clause (ADR-0006)"
+    grep -qF 'for a non-native English speaker: short sentences' "$dir/SKILL.md" \
+      || err "$name plain-language clause looks altered — expected the canonical wording (ADR-0006)"
   done
 done
 

@@ -19,6 +19,8 @@ Decisions that change *how the repo works* go in an ADR under [.agents/adr](./.a
 
 ## Done
 
+- 2026-09-01 `check-manifest.sh` now enforces the plain-language clause (ADR-0006): every promoted skill must carry the `**Plain language.**` marker with the canonical wording, closing the silent-drift gap the ADR had flagged.
+- 2026-09-01 Cut `code-review` token burn: extract repo rules once into a verbatim digest (was re-read by every subagent) and paste it only to the agents that use it — Q1 all, Q2 the utils/test subset, R/S none (ADR — code-review Step 0/2).
 - 2026-09-01 Dropped the per-skill `Adapted from …` footers (ADR-0007); the skills are standalone rewrites now, and `CREDITS.md` is the single place attribution lives. README + `writing-skills.md` reworded off "adapted" framing.
 - 2026-09-01 Plain-language output (ADR-0006): every promoted skill now carries a self-contained clause telling the agent to write person-facing output for a non-native English reader (short sentences, common words, no idioms; technical terms + code kept exact). Authoring rule added to `writing-skills.md`.
 - 2026-09-01 Hardened `code-review`: moved the `--html` layout spec to a `html-report.md` companion (leaner SKILL.md), added a big-PR guard in pre-flight (churn-rank + review top files when the diff is huge, never silent), reframed the confidence bar as a coarse band not a precise metric. Also gave `smells.md` a third binding rule — only raise a smell the diff can evidence (skip paradigm-mismatched and history-dependent smells).

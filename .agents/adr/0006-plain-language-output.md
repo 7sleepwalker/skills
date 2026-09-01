@@ -25,5 +25,5 @@ Every promoted skill whose agent emits person-facing text carries a self-contain
 
 - Output across the promoted set reads uniformly and stays approachable; technical terms and code are untouched.
 - The canonical string is duplicated across ~8 files. That is deliberate — the alternative (a shared file) cannot travel with a shipped skill. `grep` keeps the copies findable if the wording is ever revised; a change means editing each copy.
-- A skill added later without the clause is a review miss, not a mechanical failure — `check-manifest.sh` does not (yet) enforce it. The authoring checklist is the guard.
+- `check-manifest.sh` enforces the clause on every promoted skill: the `**Plain language.**` marker must be present and the canonical wording intact, so a missing or gutted clause fails the check. (The scoped `writing-for-agents` variant still passes — it keeps both checked strings.)
 - Reverting is `git revert` of the introducing commit.
