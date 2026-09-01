@@ -32,6 +32,8 @@ Posting findings to the PR is a separate, interactive skill: `boo:comment-on-pr`
 
 Where the repo is silent, [smells.md](smells.md) carries the review — say the review used it plus universal defaults.
 
+**Extract the rules once.** Read the rule files here. Then copy the rules that matter for a diff into a short **rule digest** — the exact lines, word for word, each with its `path:line`. Do not rewrite them in your own words: copying keeps the meaning exact and loses nothing, a summary can drop a rule an agent needed. Copy the real value (`max-depth: 3`), not "there is a depth rule". From a long file, take only the rules a reviewer would use. You read the files one time. The agents work from the digest, so they never open the same rule files again. If one line is not clear enough for an agent to decide, that one agent may open that one file. This is rare.
+
 ## Step 1 — Resolve the PR + diff + ticket
 
 1. **Select the PR:** explicit number/URL → use it. Else the current branch's: `gh pr view --json number,title,body,baseRefName,headRefName,url,state,files` (`GH_HOST` targets this repo's host, Enterprise included). No PR / `gh` unavailable / a local scope passed → local diff (the scope, else `--all` vs the base from `git symbolic-ref --short refs/remotes/origin/HEAD` stripped of `origin/`, fallback `main`/`master`); note "No PR — reviewing branch vs `<base>`" (the scope check runs off local diff only).
@@ -43,9 +45,9 @@ Do NOT read the changed files yourself — hand that to the agents so the passes
 
 ## Step 2 — Fan out the review passes (parallel)
 
-Read [smells.md](smells.md) yourself first; sub-agents can't path to this skill's directory, so paste it in full into Agent Q2's brief.
+Read [smells.md](smells.md) and build the Step 0 rule digest first. You build every agent brief and paste the shared text in. The agents do not read these files themselves, so each file is read once here, not once per agent.
 
-Launch these agents **concurrently** (`Agent` tool, one message). Give each: the changed-files list, the base/head diff command, and the Step 0 rule-source paths — with the instruction to **load those rule files itself** (authority, not memory) and judge only what this repo mandates. Each returns findings as `{severity, file:line(s), impact + cited rule path:line (or "no repo rule; universal principle"), suggested fix, confidence 0-100}`.
+Launch these agents at the same time (`Agent` tool, one message). Give each one the list of changed files and the base/head diff command. Paste the rule digest only where it is used: **Q1** gets all of it; **Q2** gets the parts about the repo's own utilities and test rules; **R** and **S** do not need it — R judges logic, S reads the ticket and PR text. Each agent judges only what this repo requires and cites the `path:line` from the digest. Trust the digest, not memory. Each returns findings as `{severity, file:line(s), impact + cited rule path:line (or "no repo rule; universal principle"), suggested fix, confidence 0-100}`.
 
 - **Q1 — Standards & conventions:** names, file/module layout, layer boundaries, dependency direction, public-API surface, and any mandated data/API/state/UI pattern (required client, typed hooks, component library, forbidden raw libs) — as the repo's rules define them. Universal fallback when silent: consistency with sibling code, no circular deps, no cross-layer leaks, minimal export surface.
 - **Q2 — Reuse/simplification + testing** (paste `smells.md` here): pattern repeated 3+ → extract; monolith (>~200-300 lines) or nesting >3 → split; check the repo's own utils/libs before flagging reinvention; dead code, redundant state, nested ternaries. Judge the diff against the pasted smell catalogue under both its rules. Testing: follow the repo's conventions; missing tests for new/changed critical logic or shared utilities is a strong finding.
