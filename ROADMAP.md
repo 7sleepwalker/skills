@@ -19,7 +19,7 @@ Decisions that change *how the repo works* go in an ADR under [.agents/adr](./.a
 
 ## Done
 
-- 2026-09-01 Hardened `code-review`: moved the `--html` layout spec to a `html-report.md` companion (leaner SKILL.md), added a big-PR guard in pre-flight (churn-rank + review top files when the diff is huge, never silent), reframed the confidence bar as a coarse band not a precise metric.
+- 2026-09-01 Hardened `code-review`: moved the `--html` layout spec to a `html-report.md` companion (leaner SKILL.md), added a big-PR guard in pre-flight (churn-rank + review top files when the diff is huge, never silent), reframed the confidence bar as a coarse band not a precise metric. Also gave `smells.md` a third binding rule — only raise a smell the diff can evidence (skip paradigm-mismatched and history-dependent smells).
 - 2026-08-29 Renamed `code-quality` → `code-review` and split posting out of it: new user-invoked `comment-on-pr` reviews via `code-review`, then posts each finding as a gated inline PR comment (`gh api .../pulls/N/comments`) in a plain human voice. Dropped `--post` from `code-review`.
 - 2026-08-29 Learned from `awesome-agent-skills`: `baking` gained lettered options + per-question "not sure" (no accept-all); `code-quality` gained blast radius + git-blame regression context (adapted from trailofbits/skills `differential-review`). Evals parked in Next.
 - 2026-08-28 Namespaced every promoted skill under `boo:` via a skills-directory plugin (ADR-0005); `link-skills.sh` now makes one link to the repo root, private skills keep bare links

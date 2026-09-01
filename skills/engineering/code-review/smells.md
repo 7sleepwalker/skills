@@ -2,10 +2,11 @@
 
 Agent Q2's fallback catalogue, from Fowler's *Refactoring* (ch. 3). It gives the review something to judge against when the repo documents no standards of its own.
 
-Two rules bind everything below:
+Three rules bind everything below:
 
 1. **The repo overrides this file.** Anything in the Step 0 standards wins outright. This baseline fills silence; it never argues with a rule the repo wrote down.
 2. **Every smell is a judgement call, never a violation.** Phrase findings as "possible Feature Envy", not "violates Feature Envy" — a reason to look closer, not a verdict. Skip any smell the repo's tooling already enforces.
+3. **Only raise a smell the diff can evidence.** Skip smells that don't fit the repo's language/paradigm — inheritance smells (Refused Bequest, Middle Man) in a repo with no inheritance, OO smells in a functional codebase. Skip smells that need a whole-codebase or historical view a single diff can't show (Divergent Change, Shotgun Surgery) unless the diff itself is the evidence.
 
 Apply only to new/changed code in the diff, and only above the Step 3 confidence bar.
 
