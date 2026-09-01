@@ -9,6 +9,8 @@ For bugs where the cause is not obvious. Six phases, in order. Skipping one is a
 
 The failure this discipline exists to prevent: reading code, forming a theory, and "fixing" it, with nothing that can prove the theory wrong.
 
+**Plain language.** Write anything a person reads — questions, findings, summaries, reports — for a non-native English speaker: short sentences, one idea each, common words, no idioms or phrasal verbs. Keep technical terms and proper names exact (`null-check`, `race`) and never simplify code. Clear over clever.
+
 ## Redact first
 
 This skill has you paste commands, output, and captured payloads. Replace every secret with `<REDACTED>` before showing it. Keep credentials in environment variables so they never appear in a command you print. Captured traffic carries auth headers: quote only the lines that carry signal.

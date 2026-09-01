@@ -9,6 +9,8 @@ A skill, an `AGENTS.md`, a doc reached by a pointer: the packaging differs, the 
 
 For the mechanical rules of skills in this repo (folder shape, frontmatter, invocation), read `.agents/writing-skills.md` at the repo root. This skill is the craft; that file is the checklist.
 
+**Plain language.** This applies to what you say to the *user* — explanations, findings, questions — not to the agent-facing docs you author here, which follow the rules below. When you write for a person, write for a non-native English speaker: short sentences, one idea each, common words, no idioms or phrasal verbs. Keep technical terms and proper names exact and never simplify code. Clear over clever.
+
 ## Pointers
 
 A **pointer** is a line in context that names material sitting outside context and encodes when to go get it. A skill description is a pointer. So is a line in `AGENTS.md` naming a doc.

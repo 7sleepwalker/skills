@@ -9,6 +9,8 @@ Interview the user until you and they share one understanding of what is being b
 
 Model the work as a **decision tree**: every decision branches into the decisions that hang off it. Your job is to visit every branch.
 
+**Plain language.** Write anything a person reads — questions, findings, summaries, reports — for a non-native English speaker: short sentences, one idea each, common words, no idioms or phrasal verbs. Keep technical terms and proper names exact (`null-check`, `race`) and never simplify code. Clear over clever.
+
 ## Rounds
 
 Work the tree in rounds.

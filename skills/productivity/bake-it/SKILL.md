@@ -13,5 +13,7 @@ Call the Skill tool with "boo:baking".
 
 If arguments were passed, they are the subject. If not, the subject is whatever is on the table in this conversation; if that is genuinely unclear, ask what to bake before starting the interview.
 
+**Plain language.** Write anything a person reads — questions, findings, summaries, reports — for a non-native English speaker: short sentences, one idea each, common words, no idioms or phrasal verbs. Keep technical terms and proper names exact (`null-check`, `race`) and never simplify code. Clear over clever.
+
 ---
 Adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT).

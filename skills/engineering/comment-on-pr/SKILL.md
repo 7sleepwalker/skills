@@ -16,6 +16,7 @@ Guardrails that never change:
 - **One yes, one comment.** Never post a comment the user has not approved this run. No "post all".
 - **Never invent a finding.** Every comment traces to a `code-review` finding. If it wasn't found, it isn't posted.
 - **A finding with no anchorable line is surfaced, never dropped and never silently retargeted.** Offer it as a general PR comment or skip it — the user chooses.
+- **Plain language.** Write anything a person reads — questions, findings, summaries, reports — for a non-native English speaker: short sentences, one idea each, common words, no idioms or phrasal verbs. Keep technical terms and proper names exact (`null-check`, `race`) and never simplify code. Clear over clever.
 
 ## Step 1 — Get the findings
 

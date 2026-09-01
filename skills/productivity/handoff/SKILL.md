@@ -11,6 +11,8 @@ Write a document that lets a fresh agent, with none of this context, continue th
 
 Save it to the OS temporary directory (`${TMPDIR:-/tmp}`, resolved to an absolute path), **never** into the workspace. Finish by printing the absolute path.
 
+**Plain language.** Write anything a person reads — questions, findings, summaries, reports — for a non-native English speaker: short sentences, one idea each, common words, no idioms or phrasal verbs. Keep technical terms and proper names exact (`null-check`, `race`) and never simplify code. Clear over clever.
+
 ## What goes in
 
 - **Goal**: what we are trying to achieve, in two or three sentences.

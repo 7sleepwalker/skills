@@ -48,6 +48,7 @@ No colons in an unquoted `description`. Quote the whole value if it needs one.
 - Name real tools and commands. Vague pointers get ignored.
 - Cross-skill dependencies are Skill tool calls, never file links. See [invocation.md](./invocation.md).
 - Keep it as short as it can be and still be unambiguous. Length is not thoroughness; every extra paragraph is context the agent spends.
+- **Instruct plain-language output.** Any skill whose agent produces text a person reads (questions, findings, summaries, reports) must carry the plain-language clause: write for a non-native English speaker — short sentences, common words, no idioms — while keeping technical terms and code exact. It ships *inside* the skill (skills run in other repos, so it cannot link back here). Reuse the canonical wording — `grep -rl '\*\*Plain language.\*\*' skills/` shows where it already lives. This rule governs the skill's *output*, not the skill prose itself; see [adr/0006-plain-language-output.md](./adr/0006-plain-language-output.md).
 
 ## Adapted skills
 

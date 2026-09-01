@@ -12,6 +12,8 @@ The user wants to start work on a ticket assigned to them in Jira. Pull the tick
 
 The failure this exists to prevent: planning from a ticket title, then discovering in review that the acceptance criteria, a linked blocker, or a decision buried in the comments changed the shape of the work.
 
+**Plain language.** Write anything a person reads — questions, findings, summaries, reports — for a non-native English speaker: short sentences, one idea each, common words, no idioms or phrasal verbs. Keep technical terms and proper names exact (`null-check`, `race`) and never simplify code. Clear over clever.
+
 ## Step 1 — Reach Jira
 
 Jira is only reachable through the `atlassian` MCP server. If the only atlassian tools available are `mcp__atlassian__authenticate` and `mcp__atlassian__complete_authentication`, the server is not authenticated: tell the user to run `mcp__atlassian__authenticate`, and stop. Never guess at ticket contents.

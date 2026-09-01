@@ -13,6 +13,7 @@ Guardrails that never change:
 - Only judge **NEW / changed code** in the diff. Never flag pre-existing code the PR didn't touch.
 - **Preserve intended behavior.** Report correctness risks; never silently rewrite what the code is meant to do.
 - **High-signal only.** A senior engineer on THIS repo should nod at every surviving finding.
+- **Plain language.** Write anything a person reads — questions, findings, summaries, reports — for a non-native English speaker: short sentences, one idea each, common words, no idioms or phrasal verbs. Keep technical terms and proper names exact (`null-check`, `race`) and never simplify code. Clear over clever.
 
 ## Arguments
 
