@@ -36,7 +36,7 @@ Where the repo is silent, [smells.md](smells.md) carries the review — say the 
 1. **Select the PR:** explicit number/URL → use it. Else the current branch's: `gh pr view --json number,title,body,baseRefName,headRefName,url,state,files` (`GH_HOST` targets this repo's host, Enterprise included). No PR / `gh` unavailable / a local scope passed → local diff (the scope, else `--all` vs the base from `git symbolic-ref --short refs/remotes/origin/HEAD` stripped of `origin/`, fallback `main`/`master`); note "No PR — reviewing branch vs `<base>`" (the scope check runs off local diff only).
 2. **Changed files:** for a PR, `gh pr diff <n> --name-only` (diff is `baseRefName...headRefName`); for a local scope, the matching `git diff --name-only`. Skip formatting/generated output.
 3. **Ticket:** match `[A-Z]+-\d+` in the ticket arg → branch → PR title/body. If a key exists and the atlassian MCP is available, fetch ONCE — `cloudId` from the URL host, else `getAccessibleAtlassianResources` → first site; then `getJiraIssue({ cloudId, issueIdOrKey, fields: ['summary','description','issuetype','status'] })`. A one-time permission prompt is expected. On any failure → the scope check runs off PR title/body alone (note "ticket unavailable").
-4. **Pre-flight:** confirm the base ref resolves (`git rev-parse <base>`) and the diff is **non-empty**. If not, stop and say which — do not spawn agents against nothing.
+4. **Pre-flight:** confirm the base ref resolves (`git rev-parse <base>`) and the diff is **non-empty**. If not, stop and say which — do not spawn agents against nothing. Then size the diff (`gh pr diff <n> --stat` for a PR, the matching `git diff --stat` for a local scope). If it's large (heuristic: ~1500+ changed lines or ~40+ files), **don't stop** — tell each agent to rank changed files by churn (lines changed) and review the top files thoroughly, listing the rest as "below churn cut — not deeply reviewed (`<n>` files)". Surface this in the output (Step 4) so a skimmed pass is never silent.
 
 Do NOT read the changed files yourself — hand that to the agents so the passes run in parallel.
 
@@ -65,7 +65,7 @@ Launch these agents **concurrently** (`Agent` tool, one message). Give each: the
 - Logic-bug and overcomplication findings share the **same ranked list** as quality findings.
 - Dedupe **one-pattern-one-finding** (list occurrences, don't repeat per line).
 - Rank: Security > Data integrity > Correctness > Performance > Simplicity > Maintainability > Readability > Style. Blast radius (from Agent R) is a tie-breaker within a tier: the more callers a finding reaches, the higher it sits.
-- **Confidence bar:** score each finding 0-100 that it's real, in-scope, not pre-existing, not intentional. **Drop anything below 80.** Scope check and `❓ [q]` are exempt.
+- **Confidence bar:** judge each finding's confidence that it's real, in-scope, not pre-existing, not intentional. Score it 0-100 as a coarse band, not a precise metric (75 vs 85 is a judgment call, not a measurement). **Drop anything below 80.** Scope check and `❓ [q]` are exempt.
 - **Overall score (0-10, quality axis only) + badge.** From the *surviving* Q1/Q2/R findings: the worst finding sets the band, count + blast radius place within it. `❓ [q]` and the Scope axis never move it.
   - `10` — no surviving findings → 🟢
   - `8–9` — only 🔵 Low → 🟢
@@ -124,12 +124,7 @@ Write every field terse and concrete: exact line numbers, exact symbols in backt
 
 4. If nothing survives: "No qualifying findings. Checked naming/structure, conventions/API, reuse/simplification, smell baseline, testing, overcomplication, logic-bug risk, and PR scope." Say whether repo rules, the smell baseline, or universal defaults were used.
 
-5. **HTML report** (only with `--html`) — when the flag is passed, after the Markdown `Write` the same report to `${TMPDIR:-/tmp}/code-review.html` (resolve `$TMPDIR` absolute), then end your response with a clickable `file://` link. Temp, never the repo. Without `--html`, skip this step entirely. Requirements:
-   - Self-contained: inline `<style>`, no external assets/scripts. Start with `<title>`; no `<html>`/`<head>`/`<body>` wrappers.
-   - Theme-aware: full light palette on bare `:root`; redefine tokens under both `@media (prefers-color-scheme: dark)` (guarded `:root:not([data-theme="light"])`) and `:root[data-theme="dark"]`; give `body` an explicit token background.
-   - Same content + order as the Markdown: header (PR #/title/branch/base), the **Review summary** (a prominent `<badge> <score>/10` — badge styled by band, reusing the severity token colours so 8–10 green, 6–7 yellow, 4–5 orange, 1–3 red — plus the per-area sentence list), verdict + the summary line, a stat row (candidates / dropped / surviving / severity counts), the Scope-check block, each finding as a card (emoji severity badge + confidence + occurrences + a `suggestion` block styled as an addition + references), a "below the bar" section for sub-80 correctness observations, a "what was checked" footer.
-   - Badges colour-coded, 🟠 High distinct from 🔴 Critical; `❓ [q]` a neutral badge outside the severity scale.
-   - Overwrite each run. Findings text is the source of truth — never invent findings not in the Markdown.
+5. **HTML report** (only with `--html`) — when the flag is passed, read [html-report.md](html-report.md) and follow it: write the same content and order as the Markdown to `${TMPDIR:-/tmp}/code-review.html`, then end your response with a clickable `file://` link. Without `--html`, skip this step entirely.
 
 To post these findings to the PR, the user runs `boo:comment-on-pr`, which gates each comment. This skill reports; it never edits.
 
