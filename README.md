@@ -53,7 +53,7 @@ Every skill below is invoked as `boo:<name>`. Skills split by who can invoke the
 
 ## Working on this repo
 
-[AGENTS.md](./AGENTS.md) holds the conventions, [ROADMAP.md](./ROADMAP.md) the live plan, [.agents/adr](./.agents/adr) the decisions, and [CREDITS.md](./CREDITS.md) the attribution for adapted skills.
+[AGENTS.md](./AGENTS.md) holds the conventions, [ROADMAP.md](./ROADMAP.md) the live plan, [.agents/adr](./.agents/adr) the decisions, and [CREDITS.md](./CREDITS.md) credits the prior work some skills started from.
 
 | Command | What it does |
 | --- | --- |
@@ -62,4 +62,4 @@ Every skill below is invoked as `boo:<name>`. Skills split by who can invoke the
 | `./scripts/list-skills.sh` | list skills with bucket and invocation mode |
 | `./scripts/check-manifest.sh` | verify the READMEs, the manifest, and the filesystem agree |
 
-MIT licensed. Several skills are adapted from [mattpocock/skills](https://github.com/mattpocock/skills) and [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman); see [CREDITS.md](./CREDITS.md).
+MIT licensed. Some skills started from prior work by others; that work is credited in [CREDITS.md](./CREDITS.md).

@@ -29,6 +29,3 @@ Save it to the OS temporary directory (`${TMPDIR:-/tmp}`, resolved to an absolut
 - Secrets. Redact API keys, tokens, passwords, and personal data, even when they appeared in the conversation.
 
 If arguments were passed, treat them as what the next session will focus on and weight the document toward that: the same state, filtered for what that task needs.
-
----
-Adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT).

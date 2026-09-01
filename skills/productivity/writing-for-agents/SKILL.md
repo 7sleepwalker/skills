@@ -74,6 +74,3 @@ Coining your own word works only if you define it, and you pay in definition tok
 - **The environment is a source of truth.** `package.json` scripts, config, directory layout, `--help` output. A document restating those is a cache, and a cache earns its keep only when the lookup is expensive. Cache the unwritten convention, the reason behind a choice, the gotcha no config confesses. Leave one-command lookups to the environment, where they cannot go stale.
 - **Check relevance line by line.** A line dies by never bearing on the task, or by going stale. Without a pruning habit the default is sediment: layers nobody dares remove, until finding what is live means digging.
 - **Delete no-ops.** An instruction the model already follows by default pays load to say nothing. The test is behavioural, not aesthetic: does the document behave differently without this line? Settle disagreements by running it, not by arguing. When a sentence fails the test, delete the sentence rather than trim it. This also grades leading words: a word too weak to beat the default is a no-op, and the fix is a stronger word, not a different technique.
-
----
-Adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT).

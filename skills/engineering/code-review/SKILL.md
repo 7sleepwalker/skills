@@ -128,6 +128,3 @@ Write every field terse and concrete: exact line numbers, exact symbols in backt
 5. **HTML report** (only with `--html`) — when the flag is passed, read [html-report.md](html-report.md) and follow it: write the same content and order as the Markdown to `${TMPDIR:-/tmp}/code-review.html`, then end your response with a clickable `file://` link. Without `--html`, skip this step entirely.
 
 To post these findings to the PR, the user runs `boo:comment-on-pr`, which gates each comment. This skill reports; it never edits.
-
----
-Severity prefixes and the terse finding style are adapted from [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) (skills are MIT). The smell baseline and the two-axis rule are adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT). Blast radius and git-blame regression context are adapted from [trailofbits/skills](https://github.com/trailofbits/skills) `differential-review` (CC-BY-SA-4.0) — technique only, rewritten here.

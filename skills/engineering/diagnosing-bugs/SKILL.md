@@ -115,6 +115,3 @@ Not done until all of these are true:
 - Every `[DEBUG-...]` line is gone. Grep the prefix.
 - Throwaway harnesses are deleted, or moved somewhere clearly marked.
 - The hypothesis that turned out to be right is named in the commit or PR message, so the next person debugging this area learns something.
-
----
-Adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT).

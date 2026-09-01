@@ -50,16 +50,9 @@ No colons in an unquoted `description`. Quote the whole value if it needs one.
 - Keep it as short as it can be and still be unambiguous. Length is not thoroughness; every extra paragraph is context the agent spends.
 - **Instruct plain-language output.** Any skill whose agent produces text a person reads (questions, findings, summaries, reports) must carry the plain-language clause: write for a non-native English speaker — short sentences, common words, no idioms — while keeping technical terms and code exact. It ships *inside* the skill (skills run in other repos, so it cannot link back here). Reuse the canonical wording — `grep -rl '\*\*Plain language.\*\*' skills/` shows where it already lives. This rule governs the skill's *output*, not the skill prose itself; see [adr/0006-plain-language-output.md](./adr/0006-plain-language-output.md).
 
-## Adapted skills
+## Crediting prior work
 
-A skill derived from someone else's work carries a footer:
-
-```
----
-Adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT).
-```
-
-and a row in [CREDITS.md](../CREDITS.md). Adapt means rewrite: our voice, our defaults, no upstream prerequisites. See [adr/0004-adapt-not-vendor.md](./adr/0004-adapt-not-vendor.md).
+A skill that started from someone else's work gets a row in [CREDITS.md](../CREDITS.md) — that is the only place credit lives. No per-skill footer: the skills here are standalone rewrites, not adaptations, and a footer on every file is noise. See [adr/0007-drop-attribution-footers.md](./adr/0007-drop-attribution-footers.md). The rewrite itself (our voice, our defaults, no upstream prerequisites) is [adr/0004-adapt-not-vendor.md](./adr/0004-adapt-not-vendor.md).
 
 ## Before you commit
 

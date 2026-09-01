@@ -53,6 +53,3 @@ The **decisions** are always the user's. Put each one to them and wait for the a
 The session is done when the frontier is empty: every branch visited, nothing left implicit.
 
 Then summarise the settled design in a few lines and ask the user to confirm. **Do not start building until they confirm.** Reaching an empty frontier is not permission to act.
-
----
-Adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT).
