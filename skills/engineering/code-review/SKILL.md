@@ -1,11 +1,11 @@
 ---
 name: code-review
-description: "PR-focused review against the repo's own standards — quality, overcomplication, logic-bug risk, and scope vs the PR + linked ticket. Parallel agents; optional HTML report via --html. To post findings as inline PR comments, use boo:comment-on-pr. Args: [PR#|url|path|--staged|--all] [TICKET] [--html]"
-argument-hint: "[PR#|url] [--html]"
+description: "PR-focused code review against the repo's own standards — quality, overcomplication, logic-bug risk, and scope vs the PR and linked ticket. Parallel review agents, optional HTML report. To post findings as inline PR comments, use boo:comment-on-pr."
+argument-hint: "[PR#|url|--staged|--all|path] [TICKET] [--html]"
 allowed-tools: Read, Grep, Glob, Bash(git diff:*), Bash(git log:*), Bash(git blame:*), Bash(git rev-parse:*), Bash(git symbolic-ref:*), Bash(gh pr view:*), Bash(gh pr diff:*), Agent, mcp__atlassian__getJiraIssue, mcp__atlassian__getAccessibleAtlassianResources, Write
 ---
 
-# Code Quality Review (PR-focused)
+# Code Review (PR-focused)
 
 Raise the engineering bar of whatever repo you're run in, and catch what the PR introduces: code quality, overcomplication (solutions heavier than the problem), logic-bug risk in the change, and whether the diff matches the **PR description + linked ticket**. Defaults to the current branch's open PR.
 
