@@ -3,7 +3,7 @@ name: comment-on-pr
 description: Review a PR with code-review, then post each finding as an inline PR comment, asking before every one.
 disable-model-invocation: true
 argument-hint: "[PR#|url] [TICKET]"
-allowed-tools: Read, Skill, Bash(gh pr view:*), Bash(gh api:*), Bash(gh pr comment:*), Bash(git rev-parse:*), Write
+allowed-tools: Skill, Bash(gh pr view:*), Bash(gh api:*), Bash(gh pr comment:*), Write
 ---
 
 # Comment on a PR
@@ -30,7 +30,7 @@ If `code-review` fell back to a local diff (no real PR), there is nowhere to pos
 
 ## Step 2 — Resolve the PR head
 
-Inline comments attach to a commit. Fetch the PR number and its head SHA once:
+Inline comments attach to a commit. This step and Step 3a need `gh` working: if `gh` is missing or not authenticated (`gh auth status` fails), say so and stop — there is nowhere to post. Otherwise fetch the PR number and its head SHA once:
 
 ```
 gh pr view <n> --json number,headRefOid,url

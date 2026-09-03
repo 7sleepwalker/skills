@@ -2,7 +2,7 @@
 name: code-review
 description: "PR-focused review against the repo's own standards — quality, overcomplication, logic-bug risk, and scope vs the PR + linked ticket. Parallel agents; optional HTML report via --html. To post findings as inline PR comments, use boo:comment-on-pr. Args: [PR#|url|path|--staged|--all] [TICKET] [--html]"
 argument-hint: "[PR#|url] [--html]"
-allowed-tools: Read, Grep, Glob, Bash(git diff:*), Bash(git status:*), Bash(git ls-files:*), Bash(git log:*), Bash(git blame:*), Bash(git rev-parse:*), Bash(git symbolic-ref:*), Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr list:*), Agent, mcp__atlassian__getJiraIssue, mcp__atlassian__getAccessibleAtlassianResources, mcp__atlassian__search, Write
+allowed-tools: Read, Grep, Glob, Bash(git diff:*), Bash(git log:*), Bash(git blame:*), Bash(git rev-parse:*), Bash(git symbolic-ref:*), Bash(gh pr view:*), Bash(gh pr diff:*), Agent, mcp__atlassian__getJiraIssue, mcp__atlassian__getAccessibleAtlassianResources, Write
 ---
 
 # Code Quality Review (PR-focused)
