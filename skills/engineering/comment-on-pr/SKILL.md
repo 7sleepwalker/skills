@@ -10,7 +10,7 @@ allowed-tools: Skill, Bash(gh pr view:*), Bash(gh api:*), Bash(gh pr comment:*),
 
 Review a PR, then post its findings back as **inline review comments** — one per finding, anchored to the exact line, each in a plain human voice. You show every comment and **ask before posting it**. Nothing reaches the PR without a yes.
 
-The review itself is not reimplemented here: `boo:code-review` produces the findings. This skill owns only the voice and the per-comment gate.
+The review itself is not reimplemented here: the **code-review** method produces the findings. This skill owns only the voice and the per-comment gate.
 
 Guardrails that never change:
 - **One yes, one comment.** Never post a comment the user has not approved this run. No "post all".
@@ -20,7 +20,7 @@ Guardrails that never change:
 
 ## Step 1 — Get the findings
 
-Call the Skill tool with `boo:code-review`, passing the same PR selector and ticket the user gave you (a bare number, a PR URL, or nothing to auto-detect the current branch's PR). Let it run to completion.
+Get the findings by applying the **code-review** method (in `code-review`), passing the same PR selector and ticket the user gave you (a bare number, a PR URL, or nothing to auto-detect the current branch's PR). On Claude Code, invoke it with the Skill tool — `boo:code-review`; on any other agent, run that method. Let it run to completion.
 
 Take its **ranked findings** and its **scope check** from that output. You will turn each finding into one comment. The scope check is not a line-anchored finding — hold it for Step 4.
 

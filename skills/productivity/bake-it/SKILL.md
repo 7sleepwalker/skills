@@ -9,7 +9,7 @@ disable-model-invocation: true
 
 The user has something half-baked and wants it interrogated before any work starts.
 
-Call the Skill tool with "boo:baking".
+Apply the **baking** method to the subject — the interview loop in `baking`. On Claude Code, invoke it with the Skill tool (`boo:baking`); on any other agent, follow that method directly.
 
 If arguments were passed, they are the subject. If not, the subject is whatever is on the table in this conversation; if that is genuinely unclear, ask what to bake before starting the interview.
 

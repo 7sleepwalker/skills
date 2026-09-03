@@ -20,7 +20,7 @@ Save it to the OS temporary directory (`${TMPDIR:-/tmp}`, resolved to an absolut
 - **Decisions made**: the ones with reasons, especially where an obvious-looking alternative was rejected and why.
 - **Traps**: what was tried and failed, what looks wrong but is deliberate, what breaks if touched.
 - **Next steps**: concrete and ordered.
-- **Suggested skills**: which skills the next agent should call the Skill tool for, and when.
+- **Suggested skills**: which skills (methods) the next agent should apply, and when.
 
 ## What stays out
 

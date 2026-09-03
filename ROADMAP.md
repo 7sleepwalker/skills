@@ -5,7 +5,7 @@ Decisions that change *how the repo works* go in an ADR under [.agents/adr](./.a
 
 ## Now
 
-- [ ] Finish the agent-agnostic rollout (convention + pilot landed — see Done). Remaining: convert `comment-on-pr` + `bake-it` (`Skill` call → method reference), `bake-with-jira` (plan mode + MCP as optional layers), `handoff`; optional `AGENTS.md` distribution so non-Claude agents load the skills — prefer mattpocock's single-pointer route over caveman's per-agent replication (our bodies change; copies would rot).
+- [ ] Optional `AGENTS.md` distribution so non-Claude agents *load* the skills — prefer mattpocock's single-pointer route over caveman's per-agent replication (our bodies change; copies would rot). The content is portable now (whole promoted set converted, ADR-0009); this is the delivery half, and the only remaining piece of the agent-agnostic goal.
 - [ ] Phase 4: publish the repo to GitHub as public, verify the plugin install path on a second machine
 
 ## Next
@@ -19,6 +19,7 @@ _None open._
 
 ## Done
 
+- 2026-09-03 Completed the agent-agnostic rollout across the promoted set. `bake-it`, `bake-with-jira`, `comment-on-pr`, `handoff` converted: cross-skill `Skill` calls → method references ("apply the *<name>* method"), and `Agent`/`AskUserQuestion`/plan-mode/atlassian-MCP wrapped as optional "on Claude Code" layers over portable defaults. Every remaining tool name now sits in frontmatter `allowed-tools` or inside a conditional. Only `AGENTS.md` distribution (delivery) is left — see Now.
 - 2026-09-03 Agent-agnostic authoring (Q1a + Q3b): added a `## Portability` section to `writing-for-agents` (capability vocabulary — "search the codebase" not `Grep`, "spawn parallel workers" not the `Agent` tool, "apply the *<name>* method" not a `Skill` call — plus the conditional-layering rule) and a matching "name capabilities, not tools" line in `.agents/writing-skills.md`. Pilot: converted `code-review`'s fan-out to capability-first (sequential spine, parallel workers an optional accelerator), renamed its Claude-only "agents" to "passes", and fixed the resulting "pass" vs pass/fail collision. `baking` confirmed already portable (one `grep`→"search" tweak). The decision is recorded in ADR-0009; remaining skills are in Now.
 - 2026-09-03 Drafted the first eval seed (`evals/bake-a-feature/`) — see Next; running is gated in early access, so it is unverified.
 - 2026-09-03 Works-check pass: verified all 8 skills run — cross-skill calls resolve, `allowed-tools` complete, load path green, each skill behaviourally sane. Swept dust: trimmed over-declared `allowed-tools` on `code-review` and `comment-on-pr`, added a `gh` missing/unauthenticated guard to `comment-on-pr`, aligned the plugin blurb across `plugin.json` and `marketplace.json`.

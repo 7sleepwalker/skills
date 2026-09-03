@@ -16,7 +16,7 @@ The failure this exists to prevent: planning from a ticket title, then discoveri
 
 ## Step 1 — Reach Jira
 
-Jira is only reachable through the `atlassian` MCP server. If the only atlassian tools available are `mcp__atlassian__authenticate` and `mcp__atlassian__complete_authentication`, the server is not authenticated: tell the user to run `mcp__atlassian__authenticate`, and stop. Never guess at ticket contents.
+Jira is reachable through your agent's Jira integration; on Claude Code that is the `atlassian` MCP server. If the only atlassian tools available are `mcp__atlassian__authenticate` and `mcp__atlassian__complete_authentication`, the server is not authenticated: tell the user to run `mcp__atlassian__authenticate`, and stop. Never guess at ticket contents.
 
 Call `getAccessibleAtlassianResources` for the `cloudId`. One site: use it. Several: ask which.
 
@@ -36,7 +36,7 @@ Then:
 
 - **No results**: say so and stop. Do not widen the query on your own.
 - **One result**: name it and continue.
-- **Several**: list them as `KEY — summary (status, type)` and put the choice to the user with the AskUserQuestion tool, so picking is one keypress. Never pick for them.
+- **Several**: list them as `KEY — summary (status, type)` and ask the user to pick (on Claude Code, the AskUserQuestion tool, so it is one keypress). Never pick for them.
 
 ## Step 3 — Read the ticket properly
 
@@ -48,15 +48,15 @@ Then state plainly what the ticket does **not** answer. Those gaps are the inter
 
 ## Step 4 — Light recon
 
-One `Agent` call with `subagent_type: Explore`, scoped to the area the ticket names, over the repo this session is already in. Ask it for three things: the files that would change, the existing pattern to follow, and how that area is tested.
+Spawn one worker to recon the area the ticket names, over the repo this session is already in — ask it for three things: the files that would change, the existing pattern to follow, and how that area is tested. On Claude Code, this is one `Agent` call with `subagent_type: Explore`; if your agent cannot spawn a worker, do the recon yourself.
 
 If the working directory is clearly not the ticket's repo, ask which repo before running recon.
 
-One pass. Do not fan out, and do not read the whole subsystem yourself.
+One pass, shallow. Do not fan out or map the whole subsystem.
 
 ## Step 5 — Bake it
 
-Call the Skill tool with "boo:baking".
+Apply the **baking** method — the interview loop in `baking`. On Claude Code, invoke it with the Skill tool (`boo:baking`); on any other agent, follow that method directly.
 
 The subject is the ticket plus the recon findings. Hand those over as established facts, so the interview does not spend questions on what Steps 3 and 4 already answered. Facts are yours; decisions are the user's.
 
@@ -64,7 +64,7 @@ The subject is the ticket plus the recon findings. Hand those over as establishe
 
 Only once the user has confirmed the interview's summary. An empty frontier is not permission to act.
 
-If the session is not already in plan mode, call `EnterPlanMode`. Write the plan to the plan file:
+Write the plan and stop before implementing. On Claude Code, use plan mode: if not already in it, call `EnterPlanMode`, then write the plan to the plan file (on another agent, write it to a file or the reply). The plan holds:
 
 - title: `KEY — summary`, with the ticket URL underneath
 - **Context**: why this work exists, from the ticket
@@ -72,7 +72,7 @@ If the session is not already in plan mode, call `EnterPlanMode`. Write the plan
 - the files to change, from recon
 - how to verify the work end to end
 
-Call `ExitPlanMode`. Do not start implementing.
+On Claude Code, call `ExitPlanMode`. Either way, do not start implementing.
 
 Tell the user the ticket key doubles as the `TICKET` argument to `/boo:code-review` when the PR is up.
 
