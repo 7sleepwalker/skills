@@ -5,7 +5,6 @@ Decisions that change *how the repo works* go in an ADR under [.agents/adr](./.a
 
 ## Now
 
-- [ ] Optional `AGENTS.md` distribution so non-Claude agents *load* the skills — prefer mattpocock's single-pointer route over caveman's per-agent replication (our bodies change; copies would rot). The content is portable now (whole promoted set converted, ADR-0009); this is the delivery half, and the only remaining piece of the agent-agnostic goal.
 - [ ] Phase 4: publish the repo to GitHub as public, verify the plugin install path on a second machine
 
 ## Next
@@ -19,6 +18,7 @@ _None open._
 
 ## Done
 
+- 2026-09-03 Cross-agent distribution (ADR-0010): `link-skills.sh` now also symlinks every skill into `~/.agents/skills` (the generic cross-agent dir), and `unlink-skills.sh` clears them symmetrically. This is the delivery half of the agent-agnostic goal — bodies were already portable (ADR-0009); the links make agents that read `~/.agents/skills` load the same skills, symlinks not copies (nothing to rot). `AGENTS.md`/`README.md` updated. The whole agent-agnostic goal (content + delivery) is now done.
 - 2026-09-03 Completed the agent-agnostic rollout across the promoted set. `bake-it`, `bake-with-jira`, `comment-on-pr`, `handoff` converted: cross-skill `Skill` calls → method references ("apply the *<name>* method"), and `Agent`/`AskUserQuestion`/plan-mode/atlassian-MCP wrapped as optional "on Claude Code" layers over portable defaults. Every remaining tool name now sits in frontmatter `allowed-tools` or inside a conditional. Only `AGENTS.md` distribution (delivery) is left — see Now.
 - 2026-09-03 Agent-agnostic authoring (Q1a + Q3b): added a `## Portability` section to `writing-for-agents` (capability vocabulary — "search the codebase" not `Grep`, "spawn parallel workers" not the `Agent` tool, "apply the *<name>* method" not a `Skill` call — plus the conditional-layering rule) and a matching "name capabilities, not tools" line in `.agents/writing-skills.md`. Pilot: converted `code-review`'s fan-out to capability-first (sequential spine, parallel workers an optional accelerator), renamed its Claude-only "agents" to "passes", and fixed the resulting "pass" vs pass/fail collision. `baking` confirmed already portable (one `grep`→"search" tweak). The decision is recorded in ADR-0009; remaining skills are in Now.
 - 2026-09-03 Drafted the first eval seed (`evals/bake-a-feature/`) — see Next; running is gated in early access, so it is unverified.

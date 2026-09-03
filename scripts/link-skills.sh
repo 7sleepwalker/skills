@@ -8,7 +8,12 @@ set -euo pipefail
 # Private skills are absent from plugin.json's skills[], so they get their own
 # bare symlinks and stay outside the boo: namespace.
 #
-# Re-run after adding or renaming a skill. See .agents/adr/0005-boo-namespace.md.
+# It also links every skill (bare, one per directory) into ~/.agents/skills, the
+# generic cross-agent skills dir, so agents that read it load the same skills.
+# The bodies are agent-agnostic (ADR-0009); the links keep one source of truth.
+#
+# Re-run after adding or renaming a skill. See .agents/adr/0005-boo-namespace.md
+# and .agents/adr/0010-cross-agent-distribution.md.
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 DEST="${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}"
@@ -80,3 +85,44 @@ fi
 
 echo "$PLUGIN_NAME plugin linked, $private private skill(s) linked into $DEST"
 echo "Restart Claude Code, then /boo: to list the namespaced skills."
+
+# --- Generic cross-agent dir: one bare link per skill (promoted + private), so
+# --- agents that read ~/.agents/skills load them too. No boo: namespace here.
+# --- See .agents/adr/0010-cross-agent-distribution.md.
+AGENTS_DEST="${AGENTS_SKILLS_DIR:-$HOME/.agents/skills}"
+
+if [ -L "$AGENTS_DEST" ]; then
+  aresolved="$(cd "$(dirname "$AGENTS_DEST")" && cd "$(readlink "$AGENTS_DEST")" && pwd)"
+  case "$aresolved" in
+    "$REPO" | "$REPO"/*)
+      echo "error: $AGENTS_DEST is a symlink into this repo ($aresolved)." >&2
+      echo "Remove it (rm \"$AGENTS_DEST\") and re-run." >&2
+      exit 1
+      ;;
+  esac
+fi
+
+mkdir -p "$AGENTS_DEST"
+
+acleaned=0
+for entry in "$AGENTS_DEST"/*; do
+  [ -L "$entry" ] || continue
+  case "$(readlink "$entry")" in
+    "$REPO" | "$REPO"/*) rm "$entry"; acleaned=$((acleaned + 1)) ;;
+  esac
+done
+[ "$acleaned" -eq 0 ] || echo "cleaned $acleaned stale link(s) in $AGENTS_DEST"
+
+alinked=0
+while IFS= read -r -d '' skill_md; do
+  src="$(dirname "$skill_md")"
+  name="$(basename "$src")"
+  if [ -e "$AGENTS_DEST/$name" ] && [ ! -L "$AGENTS_DEST/$name" ]; then
+    echo "replacing real directory $AGENTS_DEST/$name"
+    rm -rf "${AGENTS_DEST:?}/$name"
+  fi
+  ln -sfn "$src" "$AGENTS_DEST/$name"
+  alinked=$((alinked + 1))
+done < <(find "$REPO/skills" -name SKILL.md -print0 | sort -z)
+
+echo "$alinked skill(s) linked into $AGENTS_DEST (generic cross-agent dir)"

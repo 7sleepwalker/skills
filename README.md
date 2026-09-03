@@ -57,8 +57,8 @@ Every skill below is invoked as `boo:<name>`. Skills split by who can invoke the
 
 | Command | What it does |
 | --- | --- |
-| `./scripts/link-skills.sh` | link the repo into `~/.claude/skills` as the `boo` plugin, plus bare links for private skills |
-| `./scripts/unlink-skills.sh` | remove this repo's symlinks and disable the git hooks |
+| `./scripts/link-skills.sh` | link the repo into `~/.claude/skills` as the `boo` plugin (plus bare links for private skills), and every skill into `~/.agents/skills` for other agents |
+| `./scripts/unlink-skills.sh` | remove this repo's symlinks (both dirs) and disable the git hooks |
 | `./scripts/list-skills.sh` | list skills with bucket, invocation mode, and a short description |
 | `./scripts/check-manifest.sh` | verify the READMEs, the manifest, and the filesystem agree (also runs on `git push` via the pre-push hook) |
 
