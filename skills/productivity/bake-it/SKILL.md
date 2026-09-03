@@ -1,6 +1,6 @@
 ---
 name: bake-it
-description: A relentless interview that turns a half-baked idea into a plan you can build.
+description: Bake a loose idea into a plan you can build — a relentless interview for any subject with no ticket attached. The generic entry to the baking engine; for a Jira ticket, use bake-with-jira instead.
 argument-hint: "[what to bake]"
 disable-model-invocation: true
 ---

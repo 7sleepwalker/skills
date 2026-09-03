@@ -1,6 +1,6 @@
 ---
 name: baking
-description: Interview the user relentlessly about a plan, design, or decision until every open branch is settled. Use when the user wants to stress-test their thinking, says "bake it" / "half-baked", "poke holes in this", "interview me first", or when a request is too underspecified to act on safely.
+description: The interview engine behind bake-it and bake-with-jira — work the decision tree in rounds, ask the whole frontier at once, recommend an answer to every question, until every branch is settled. Use when the user wants to stress-test a plan or decision, says "bake it" / "half-baked" / "poke holes in this" / "interview me first", or a request is too underspecified to act on safely.
 ---
 
 # Baking

@@ -1,6 +1,6 @@
 ---
 name: bake-with-jira
-description: Pick a Jira ticket assigned to me and bake it into an implementation plan.
+description: Start from a Jira ticket assigned to me — pull it, recon the repo, then bake the gaps into an implementation plan. The Jira-sourced sibling of bake-it.
 argument-hint: "[ticket key or search terms]"
 disable-model-invocation: true
 allowed-tools: Read, Grep, Glob, Agent, Skill, AskUserQuestion, EnterPlanMode, ExitPlanMode, Write, mcp__atlassian__getAccessibleAtlassianResources, mcp__atlassian__searchJiraIssuesUsingJql, mcp__atlassian__getJiraIssue
