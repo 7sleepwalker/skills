@@ -42,7 +42,7 @@ Each round's answers reshape the tree: settled decisions push the frontier outwa
 
 ## Facts are yours, decisions are theirs
 
-Never ask the user something you could find out. If a frontier question needs a fact from the environment (what the code does, what a dependency exposes, what the config says, what the docs say), go get it: read, grep, search, run the tool.
+Never ask the user something you could find out. If a frontier question needs a fact from the environment (what the code does, what a dependency exposes, what the config says, what the docs say), go get it: read files, search the codebase, run a tool.
 
 Do not block the round on a lookup. An unfinished investigation is just an unsettled prerequisite: the questions downstream of it wait, the rest of the frontier gets asked now.
 

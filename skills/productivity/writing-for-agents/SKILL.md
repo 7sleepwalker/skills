@@ -68,6 +68,14 @@ Coining your own word works only if you define it, and you pay in definition tok
 
 **Prompt the positive.** Steering by prohibition drags the forbidden thing into context and makes it more available, not less. State the target behaviour so the banned one is never named. Keep a prohibition only as a hard guardrail you cannot phrase positively, and even then pair it with the positive target.
 
+## Portability
+
+A document tied to one agent's tools runs on one agent. Write the **capability**, not the tool: "search the codebase", not `Grep`; "spawn parallel workers", not the `Agent` tool; "ask the user", not `AskUserQuestion`; "apply the *<name>* method", not a `Skill` call. The named tool is one harness's way to do the capability; the capability is what every harness shares.
+
+**Layer the harness-specific as optional.** When a capability has a fast path on some agents and not others, write the portable path as the spine and mark the accelerator as conditional: "review the passes in sequence; if your agent can run subagents, launch them at once instead." The document degrades instead of breaking, and the tool name lives inside the conditional, where it belongs, not on the main line.
+
+Keep frontmatter minimal-common — `name`, `description`. Harness-specific fields (`allowed-tools`, `disable-model-invocation`) are additive: the agents that use them read them, the rest ignore them.
+
 ## Pruning
 
 - **One source of truth per meaning.** The same rule in two places costs tokens, costs maintenance, and inflates that rule's apparent rank.

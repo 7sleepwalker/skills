@@ -5,12 +5,13 @@ Decisions that change *how the repo works* go in an ADR under [.agents/adr](./.a
 
 ## Now
 
+- [ ] Finish the agent-agnostic rollout (convention + pilot landed — see Done). Remaining: convert `comment-on-pr` + `bake-it` (`Skill` call → method reference), `bake-with-jira` (plan mode + MCP as optional layers), `handoff`; write an ADR for the capability-language decision (a house rule now lives in `writing-skills.md` without one); optional `AGENTS.md` distribution so non-Claude agents load the skills — prefer mattpocock's single-pointer route over caveman's per-agent replication (our bodies change; copies would rot).
 - [ ] Phase 4: publish the repo to GitHub as public, verify the plugin install path on a second machine
 
 ## Next
 
 - [ ] Fill in `docs/`-style usage notes only if a skill turns out to need more than its `SKILL.md`
-- [ ] Add skill evals once `claude plugin eval` leaves early access (not enabled in-session yet). Schema captured: cases at `skills/<bucket>/<name>/evals/<case>/prompt.md` (frontmatter `name`, `tags`, `runs`, `max_turns`, `allowed_tools`, `model`) + `evals/<case>/graders/<name>.md` (`type:` regex | tool_used | tool_order | file_exists | llm | baseline; `target:` last_message | trace | files). Run `claude plugin eval . --allow-tools Bash Write`; results at `<eval-dir>/results/<ts>/aggregate-result.json` + `report.html`, exit 0 = all cases ≥ `--threshold` (default 1.0). Seed `code-review` + `baking` first. Source: Anthropic skill-creator.
+- [ ] Run + expand skill evals. First seed drafted at `evals/bake-a-feature/` (baking: a `tool_used: Skill` fired-indicator + an `llm` grader for the interview behaviour). `claude plugin eval` ships in the CLI, but *running* is still gated ("plugin eval is currently in early access"), so the seed is unverified until the gate opens. Then seed `code-review` too and wire `.github/workflows/check.yml` to run them. Schema: cases at `evals/<case>/prompt.md` (frontmatter `name`, `tags`, `plugins`, `runs`, `max_turns`, `allowed_tools`, `model`) + `graders/<name>.md` (`type:` regex | tool_used | tool_order | file_exists | llm | baseline; `target:` last_message | trace | files); ablation runs with/without arms; `claude plugin eval . --allow-tools Bash Write`; exit 0 = all cases ≥ `--threshold` (default 1.0). Source: Anthropic skill-creator.
 
 ## Open questions
 
@@ -18,6 +19,8 @@ _None open._
 
 ## Done
 
+- 2026-09-03 Agent-agnostic authoring (Q1a + Q3b): added a `## Portability` section to `writing-for-agents` (capability vocabulary — "search the codebase" not `Grep`, "spawn parallel workers" not the `Agent` tool, "apply the *<name>* method" not a `Skill` call — plus the conditional-layering rule) and a matching "name capabilities, not tools" line in `.agents/writing-skills.md`. Pilot: converted `code-review`'s fan-out to capability-first (sequential spine, parallel workers an optional accelerator), renamed its Claude-only "agents" to "passes", and fixed the resulting "pass" vs pass/fail collision. `baking` confirmed already portable (one `grep`→"search" tweak). Remaining skills + the ADR are in Now.
+- 2026-09-03 Drafted the first eval seed (`evals/bake-a-feature/`) — see Next; running is gated in early access, so it is unverified.
 - 2026-09-03 Works-check pass: verified all 8 skills run — cross-skill calls resolve, `allowed-tools` complete, load path green, each skill behaviourally sane. Swept dust: trimmed over-declared `allowed-tools` on `code-review` and `comment-on-pr`, added a `gh` missing/unauthenticated guard to `comment-on-pr`, aligned the plugin blurb across `plugin.json` and `marketplace.json`.
 - 2026-09-03 Enforcement widened: GitHub Actions (`.github/workflows/check.yml`) runs `check-manifest.sh` on push + PR — covers the fresh-clone gap in ADR-0008 server-side. `check-manifest.sh` also asserts every `boo:<name>` reference in a promoted `SKILL.md` resolves to a real promoted skill (catches a rename silently breaking a cross-skill call).
 - 2026-09-03 Closed two open questions. `writing-for-agents` (the craft) stays separate from `.agents/writing-skills.md` (the checklist) — under ~5% overlap, clean division, mutual cross-refs. Manual `plugin.json` version bumps stay manual — a release script is deferred until releases are frequent (still v0.1.0).
