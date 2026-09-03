@@ -74,6 +74,23 @@ if git rev-parse --git-dir >/dev/null 2>&1; then
   [ -z "$leaks" ] || { echo "$leaks" >&2; err "private skills referenced from tracked files (above)"; }
 fi
 
+# --- cross-skill Skill-tool references resolve to real promoted skills ------
+promoted_names=""
+for bucket in "${PROMOTED_BUCKETS[@]}"; do
+  for dir in skills/"$bucket"/*/; do
+    [ -f "$dir/SKILL.md" ] && promoted_names="$promoted_names $(basename "$dir")"
+  done
+done
+while IFS= read -r ref; do
+  [ -n "$ref" ] || continue
+  case " $promoted_names " in
+    *" $ref "*) ;;
+    *) err "a promoted SKILL.md references boo:$ref, which is not a promoted skill" ;;
+  esac
+done < <(grep -rhoE 'boo:[a-z0-9]+(-[a-z0-9]+)*' \
+           skills/engineering skills/productivity --include=SKILL.md \
+         | sed 's/^boo://' | sort -u)
+
 # --- plugin CLI validation, when available ---------------------------------
 if command -v claude >/dev/null 2>&1; then
   claude plugin validate . --strict || err "claude plugin validate failed"

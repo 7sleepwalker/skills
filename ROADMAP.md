@@ -14,11 +14,13 @@ Decisions that change *how the repo works* go in an ADR under [.agents/adr](./.a
 
 ## Open questions
 
-- Is `writing-for-agents` (portable technique) worth keeping separate from `.agents/writing-skills.md` (house rules), or should one absorb the other?
-- Manual `plugin.json` version bumps: good enough, or worth a release script later?
+_None open._
 
 ## Done
 
+- 2026-09-03 Works-check pass: verified all 8 skills run — cross-skill calls resolve, `allowed-tools` complete, load path green, each skill behaviourally sane. Swept dust: trimmed over-declared `allowed-tools` on `code-review` and `comment-on-pr`, added a `gh` missing/unauthenticated guard to `comment-on-pr`, aligned the plugin blurb across `plugin.json` and `marketplace.json`.
+- 2026-09-03 Enforcement widened: GitHub Actions (`.github/workflows/check.yml`) runs `check-manifest.sh` on push + PR — covers the fresh-clone gap in ADR-0008 server-side. `check-manifest.sh` also asserts every `boo:<name>` reference in a promoted `SKILL.md` resolves to a real promoted skill (catches a rename silently breaking a cross-skill call).
+- 2026-09-03 Closed two open questions. `writing-for-agents` (the craft) stays separate from `.agents/writing-skills.md` (the checklist) — under ~5% overlap, clean division, mutual cross-refs. Manual `plugin.json` version bumps stay manual — a release script is deferred until releases are frequent (still v0.1.0).
 - 2026-09-01 Script polish: `unlink-skills.sh` now unsets `core.hooksPath` (symmetry with `link-skills.sh`, guarded so a custom value survives) and still runs when the skills dir is already gone; `list-skills.sh` gained a trimmed description column.
 - 2026-09-01 Added a tracked `.githooks/pre-push` that runs `check-manifest.sh` and blocks the push on failure (ADR-0008); `link-skills.sh` enables it via `core.hooksPath`. Turns the "check before push" discipline into real enforcement — no CI on this machine.
 - 2026-09-01 `code-review` diff scoping: the scope agent (S) now runs on the changed-files list + `--stat` + PR/ticket text instead of the full code diff — it judges intent vs what changed, not the code, so this saves ~1× full diff per run with no quality loss. Q1/Q2/R still read the full diff.

@@ -21,3 +21,4 @@ Ship a tracked `.githooks/pre-push` that runs `check-manifest.sh` and blocks the
 - A fresh clone has no enforcement until `link-skills.sh` runs once — acceptable, since that script is already the required first step on a new machine.
 - Emergency escape is the standard `git push --no-verify`. Use it knowingly; the next push with the fix restores a clean state.
 - Reverting is `git config --unset core.hooksPath` plus `git revert` of the introducing commit.
+- Update (2026-09-03): GitHub Actions (`.github/workflows/check.yml`) now runs `check-manifest.sh` on every push and PR, so the fresh-clone gap above is covered server-side. The local hook stays as the fast pre-push signal; CI is the backstop that does not depend on `link-skills.sh` having run.
