@@ -16,3 +16,4 @@ Reachable by the model or by typing the prefixed name.
 
 - **[boo:baking](./baking/SKILL.md)**: The interview primitive: work the decision tree in rounds, ask the whole frontier at once, recommend an answer to every question, stop when nothing is left implicit.
 - **[boo:writing-for-agents](./writing-for-agents/SKILL.md)**: How to write documents an agent actually follows: pointers, the information hierarchy, completion criteria, leading words, and pruning.
+- **[boo:direct-replies](./direct-replies/SKILL.md)**: Rewrite the agent's replies to a person as direct, easy-to-read messages — lead with the answer, cut hedging, filler, preamble, and empty summaries, keep normal grammar. Fewer output tokens and lighter history as a side effect. Use when the user says 'direct replies', 'be direct', 'less fluff', 'stop the slop', or 'plain replies', or when a reply turns into padding or restated-question preamble. Leaves code, commits, and quoted output untouched.

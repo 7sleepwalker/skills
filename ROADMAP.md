@@ -18,6 +18,7 @@ _None open._
 
 ## Done
 
+- 2026-09-04 Added `direct-replies` (productivity, model+user invocable): rewrites person-facing replies to be direct — answer first, cut hedging/filler/preamble/empty summaries, keep normal grammar; fewer tokens as a side effect. Registered in both READMEs + `plugin.json`.
 - 2026-09-03 Added `make-skill` (productivity, user-invoked) + `scripts/new-skill.sh` (ADR-0011): authoring a skill is now a hybrid — the skill interviews (`baking`) and drafts the body (`writing-for-agents`), the script does the deterministic wiring (template `SKILL.md`, `plugin.json`, both READMEs) and self-verifies via `link-skills.sh` + `check-manifest.sh`. Promoted buckets only.
 - 2026-09-03 Started release versioning: added `CHANGELOG.md` ([Keep a Changelog], lean — the Done log stays the day-by-day record), bumped `plugin.json` to `0.2.0` for the `make-skill` release. Tags: `v0.1.0` at the initial public set, `v0.2.0` at this work.
 - 2026-09-03 Dropped the second-machine install smoke-test from the plan: `claude plugin validate` is green and the marketplace manifest is reachable; a manual run on a real second machine is not worth tracking as an open item.

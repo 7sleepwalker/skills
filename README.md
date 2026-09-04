@@ -51,6 +51,7 @@ Every skill below is invoked as `boo:<name>`. Skills split by who can invoke the
 
 - **[boo:baking](./skills/productivity/baking/SKILL.md)**: The interview primitive behind `bake-it`. Work the decision tree in rounds, ask the whole frontier at once, recommend an answer to every question.
 - **[boo:writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md)**: How to write documents an agent actually follows: pointers, the information hierarchy, completion criteria, leading words, pruning.
+- **[boo:direct-replies](./skills/productivity/direct-replies/SKILL.md)**: Rewrite the agent's replies to a person as direct, easy-to-read messages — lead with the answer, cut hedging, filler, preamble, and empty summaries, keep normal grammar. Fewer output tokens and lighter history as a side effect. Use when the user says 'direct replies', 'be direct', 'less fluff', 'stop the slop', or 'plain replies', or when a reply turns into padding or restated-question preamble. Leaves code, commits, and quoted output untouched.
 
 ## Working on this repo
 
