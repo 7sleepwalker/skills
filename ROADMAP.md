@@ -5,7 +5,7 @@ Decisions that change *how the repo works* go in an ADR under [.agents/adr](./.a
 
 ## Now
 
-- [ ] Phase 4 (remainder): smoke-test the install path on a second machine — `/plugin marketplace add 7sleepwalker/skills`, then `/plugin install boo`. The repo is public, and the manifest is reachable + valid; only the real-machine install run is left.
+_Nothing open._
 
 ## Next
 
@@ -18,6 +18,9 @@ _None open._
 
 ## Done
 
+- 2026-09-03 Added `make-skill` (productivity, user-invoked) + `scripts/new-skill.sh` (ADR-0011): authoring a skill is now a hybrid — the skill interviews (`baking`) and drafts the body (`writing-for-agents`), the script does the deterministic wiring (template `SKILL.md`, `plugin.json`, both READMEs) and self-verifies via `link-skills.sh` + `check-manifest.sh`. Promoted buckets only.
+- 2026-09-03 Started release versioning: added `CHANGELOG.md` ([Keep a Changelog], lean — the Done log stays the day-by-day record), bumped `plugin.json` to `0.2.0` for the `make-skill` release. Tags: `v0.1.0` at the initial public set, `v0.2.0` at this work.
+- 2026-09-03 Dropped the second-machine install smoke-test from the plan: `claude plugin validate` is green and the marketplace manifest is reachable; a manual run on a real second machine is not worth tracking as an open item.
 - 2026-09-03 Phase 4 publish: the repo is public and reachable anonymously — `.claude-plugin/marketplace.json` fetches over raw, `claude plugin validate` is green, and the README install slug (`7sleepwalker/skills`) is correct. The only Phase 4 piece left is a real second-machine install smoke-test.
 - 2026-09-03 Cross-agent distribution (ADR-0010): `link-skills.sh` now also symlinks every skill into `~/.agents/skills` (the generic cross-agent dir), and `unlink-skills.sh` clears them symmetrically. This is the delivery half of the agent-agnostic goal — bodies were already portable (ADR-0009); the links make agents that read `~/.agents/skills` load the same skills, symlinks not copies (nothing to rot). `AGENTS.md`/`README.md` updated. The whole agent-agnostic goal (content + delivery) is now done.
 - 2026-09-03 Completed the agent-agnostic rollout across the promoted set. `bake-it`, `bake-with-jira`, `comment-on-pr`, `handoff` converted: cross-skill `Skill` calls → method references ("apply the *<name>* method"), and `Agent`/`AskUserQuestion`/plan-mode/atlassian-MCP wrapped as optional "on Claude Code" layers over portable defaults. Every remaining tool name now sits in frontmatter `allowed-tools` or inside a conditional. Only `AGENTS.md` distribution (delivery) is left — see Now.

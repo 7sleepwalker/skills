@@ -45,6 +45,7 @@ Every skill below is invoked as `boo:<name>`. Skills split by who can invoke the
 
 - **[boo:bake-it](./skills/productivity/bake-it/SKILL.md)**: Turn a half-baked idea into a plan worth building, by relentless interview.
 - **[boo:handoff](./skills/productivity/handoff/SKILL.md)**: Compact this conversation into a handoff document a fresh agent can pick up.
+- **[boo:make-skill](./skills/productivity/make-skill/SKILL.md)**: Author a new promoted skill end to end — interview its design, scaffold and wire it, then draft the body.
 
 **Model-invoked**
 

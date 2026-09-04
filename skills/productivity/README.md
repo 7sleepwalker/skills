@@ -8,6 +8,7 @@ Reachable only by typing them, prefix included.
 
 - **[boo:bake-it](./bake-it/SKILL.md)**: Turn a half-baked idea into a plan worth building, by relentless interview.
 - **[boo:handoff](./handoff/SKILL.md)**: Compact this conversation into a handoff document a fresh agent can pick up.
+- **[boo:make-skill](./make-skill/SKILL.md)**: Author a new promoted skill end to end — interview its design, scaffold and wire it, then draft the body.
 
 ## Model-invoked
 
